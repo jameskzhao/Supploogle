@@ -107,10 +107,30 @@ input, select, textarea{
     padding: 10px 0;
     color: grey;
 }
+#checkbox_bar{
+    width:960px;
+    float:left;
+    text-align: center;
+    margin-top:20px;
+}
+.single_checkbox{
+    display: inline-block;
+    width:230px;
+    box-sizing: border-box;
+    padding-right: 20px;
+}
+input[type=checkbox] + label {
+  color: grey;
+  font-style: italic;
+} 
+input[type=checkbox]:checked + label {
+  color: #c42f2f;
+  font-style: normal;
+} 
 #right_corner_button{
     width:192px;
     float:right;
-    padding-top:5px;
+    padding-top:20px;
 }
 #right_corner_button button{
     background:#c42f2f;
@@ -137,7 +157,7 @@ input, select, textarea{
 #home_footer{
     width:100%;
     background-color: #30333c;
-    //background-color: #fefefe;
+    /*background-color: #fefefe;*/
     height: 300px;
     color: #ebe3e2;
     text-align: center;

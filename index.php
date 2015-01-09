@@ -64,6 +64,24 @@
                         </select>
                         
                     </div>
+                    <div id="checkbox_bar">
+                        <div class="single_checkbox">
+                            <input type="checkbox" id="ts" class="home_checkbox">
+                            <label for="ts">TS</label>
+                        </div>
+                        <div class="single_checkbox">
+                            <input type="checkbox" id="iso" class="home_checkbox">
+                            <label for="iso">ISO</label>
+                        </div>
+                        <div class="single_checkbox">
+                            <input type="checkbox" id="as" class="home_checkbox">
+                            <label for="as">AS</label>
+                        </div>
+                        <div class="single_checkbox">
+                            <input type="checkbox" id="duns" class="home_checkbox">
+                            <label for="duns">DUNS</label>
+                        </div>
+                    </div>
                     
                     <div id="right_corner_button">
                         <button class="disabled" type="submit">Search</button>
