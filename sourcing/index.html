@@ -1,0 +1,31 @@
+<?php 
+    require_once('php/header.php');
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=SET_TO_TRUE_OR_FALSE">
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script  type="text/javascript">
+            $( document ).ready(function() {
+              //initialize_map();
+            });
+            function initialize_map(){
+                var map_options = {
+                    center: new google.maps.LatLng(-34.397, 150.644),
+                    zoom:8,
+                    mapTypeId:google.maps.mapTypeId.roadmap
+                };
+                var map = new google.maps.Map(document.getElementById("map_canvas"), map_options);  
+            }
+        </script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body onload="initialize_map()">
+        <div class="main">
+            <div class = "header"></div>
+            <div id="map_canvas" class = "left_map">
+            </div>
+        </div>
+    </body>
+</html>

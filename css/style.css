@@ -1,0 +1,206 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 30, 2014, 9:33:36 PM
+    Author     : jameszhao
+*/
+/*html{
+    //background: #f2f2ed;
+    background-image: url(../images/home_background.jpg); 
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height:100%;
+    
+    //width:100%;
+    
+}*/
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color:#454a56 ;
+    background-color: #F5F1F0;
+    text-align: center;
+}
+input, select, textarea{
+    color: #454a56;
+}
+
+#top_nav_bar{
+    width:100%;
+    background-color: #30333c;
+    text-align: center;
+    padding: 20px;
+    
+}
+#top_nav_menu{
+    //float:right;
+    //margin-right:30px;
+    text-align: center;
+    padding:15px 0;
+    background-color: #fefefe;
+    border-bottom: 1px solid #dfd6d4;
+    
+}
+#top_nav_menu a{
+    color:#454a56 ;
+    text-decoration: none;
+    font-size:14px;
+    padding:0 15px;
+}
+
+#top_nav_menu a.active { 
+    color: #8f9299;
+}
+#home_logo{
+    width:100%;
+    background-color: #30333c;
+    font-family: 'Lobster', cursive;
+    font-size: 48px;
+    
+    opacity:0.9;
+    filter: alpha(opacity=90);
+    text-align: center;
+    padding:25px 0;
+    font-weight: bold;
+    
+    text-align: center;
+    
+}
+#home_search_wrapper{
+    text-align: center;
+    height: 400px;
+    width: 960px;
+    display: inline-block;
+   /*background-position: center;*/
+   
+}
+
+#home_search{
+    text-align: left;
+    padding-top: 100px;
+    width:100%;
+}
+#search_bar input{
+    box-sizing: border-box;
+    width:960px;
+    padding: 10px 0;
+    font-size: 24px;
+}
+#selector_bar{
+    padding-top: 5px;
+    width:960px;
+    box-sizing: border-box;
+    text-align: left;
+    float: left;
+}
+#selector_bar select{
+    width:237px;
+    box-sizing: border-box;
+    padding: 10px 0;
+    color: grey;
+}
+#right_corner_button{
+    width:192px;
+    float:right;
+    padding-top:5px;
+}
+#right_corner_button button{
+    background:#c42f2f;
+    width:190px;
+    padding: 10px;
+    border: none;
+    font-size: 18px;
+    color: white;
+}
+#home_map_wrapper {
+    width: 960px;
+    display:inline-block;
+}
+#home_map_wrapper img{
+    width: 100%;
+}
+#home_logo a{
+    text-decoration: none;
+    color:#ebe3e2;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+             0px 8px 13px rgba(0,0,0,0.1),
+             0px 18px 23px rgba(0,0,0,0.1);
+}
+#home_footer{
+    width:100%;
+    background-color: #30333c;
+    //background-color: #fefefe;
+    height: 300px;
+    color: #ebe3e2;
+    text-align: center;
+}
+#supploogle_intro{
+    padding: 60px 0;
+}
+
+#supploogle_intro a{
+    color: inherit;
+}
+
+
+#social_buttons a{
+    display: inline-block;
+}
+#home_user{
+    text-align:center;
+    color:#ffffff;
+}
+.social_icon{
+    width:50px;
+    height:50px;
+    background-image: url(../images/social_buttons.png);
+    background-size: 100px 100px;
+    margin: 10px;
+    border: none;
+    border-radius: 25px;
+}
+.facebook_button{
+    background-position: 0px 0px;
+}
+.twitter_button{
+    background-position: -50px 0px;
+}
+.linkedin_button{
+    background-position: -50px -50px;
+}
+@media screen and (min-width:1000px) {
+    .left_map{
+        position:absolute;
+        left:0px;
+        width:70%;
+        height:80%
+    }
+    .right_side_bar{
+        margin-left: 70%;
+        border: 1px solid;
+        width: 30%;
+        height: 80%;
+    }
+}
+@media screen and (max-width:999px) {
+    .left_map{
+        position:absolute;
+        left:0px;
+        width:60%;
+        height:80%
+    }
+    .right_side_bar{
+        margin-left: 60%;
+        border: 1px solid;
+        width: 40%;
+        height: 80%;
+    }
+}
