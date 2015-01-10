@@ -43,26 +43,57 @@
         <div id="home_search_wrapper">
             
             <div id="home_search">
-            <h1>Find your supplier</h1>
+            <h1>Find your supplier. Quick and easy.</h1>
                 <form class="form_wrapper">
                     <div id="search_bar">
                     <input type="text" placeholder="Try a keyword in company or city name..." required>
                     </div>
                     <div id="selector_bar">
-                        <select id="category_selector">
-                            <option value="">Choose Category</option>
-                        </select>
-                        <select id="sub_category_selector">
-                            <option value="">Choose Sub-Category</option>
-                        </select>
-                        <select id="sub_sub_category_selector">
-                            <option value="">Choose Sub-sub-Category</option>
-                        </select>
-                        <select id="country_selector">
-                            <option value="">Choose Country</option>
-                            <option value="">China</option>
-                        </select>
-                        
+                        <div class="styled-select slate">
+                            <select id="category_selector">
+                                <option value="">Choose Category</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                            </select>
+                        </div>
+                        <div class="styled-select slate">
+                            <select id="sub_category_selector">
+                                <option value="">Choose Sub-Category</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                            </select>
+                        </div>
+                        <div class="styled-select slate">
+                            <select id="sub_sub_category_selector">
+                                <option value="">Choose Sub-sub-Category</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                                <option value="">Test Category 1</option>
+                            </select>
+                        </div>
+                        <div class="styled-select slate">    
+                            <select id="country_selector">
+                                <option value="">Choose Country</option>
+                                <option value="cn">China</option>
+                                <option value="ca">Canada</option>
+                                <option value="us">United States</option>
+                            </select>
+                        </div>
                     </div>
                     <div id="checkbox_bar">
                         <div class="single_checkbox">
