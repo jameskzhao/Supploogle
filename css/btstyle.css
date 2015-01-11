@@ -4,8 +4,20 @@
     top: 80px;
     float: left;
     height: 50%;
-    width: 60px;
+    width: 65px;
     background-color: #304387;
+    text-align: center;
+    padding-top: 10px;
+}
+.home_menu_item{
+    display: inline-block;
+    width:38px;
+    height:38px;
+    background-color: #fff;
+    margin-top: 10px;
+}
+#home_menu div.selected{
+    background-color:#00adef;
 }
 .home_content{
     height:90%;
