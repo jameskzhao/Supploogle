@@ -8,8 +8,12 @@
         <!-- Goole font for logo -->
         <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
+        <script type="text/javascript" src="js/data.js"></script>
+        <script type="text/javascript" src="js/markerclusterer.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
         <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -41,7 +45,7 @@
                 </div>
                 <div>
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
+                        <li class="active"><a href="#">Map</a></li>
                         <li><a href="#">Page 1</a></li>
                         <li><a href="#">Page 2</a></li> 
                         <li><a href="#">Page 3</a></li> 
@@ -55,8 +59,9 @@
             
         </div>
     </nav>
-    <div class="container-fluid"  role="main">
-        <div class="row upper"></div>
+    <div class="row">
+        <div id="map_canvas" class = "left_map"></div>
+        <div class = "right_side_bar"></div>
     </div>
 
   </body>
