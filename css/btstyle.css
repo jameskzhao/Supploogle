@@ -1,3 +1,21 @@
+.home_menu{
+    position: fixed;
+    z-index: 1000;
+    top: 80px;
+    float: left;
+    height: 50%;
+    width: 60px;
+    background-color: #304387;
+}
+.home_content{
+    height:90%;
+}
+.navbar {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 0;
+  border: 1px solid transparent;
+}
 .navbar-default {
 	background-image: -webkit-linear-gradient(top,#3d56ad 0%,#304387 100%);
     background-image: -o-linear-gradient(top,#3d56ad 0%,#304387 100%);
@@ -78,6 +96,12 @@
 		background-color: #00adef;
 	}
 }
+.left_map{
+    position: absolute;
+    width: 70%;
+    height: 80%;
+}
+/*
 @media screen and (min-width:1000px) {
     .left_map{
         position:absolute;
@@ -105,4 +129,4 @@
         width: 40%;
         height: 80%;
     }
-}
+}*/

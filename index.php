@@ -34,7 +34,7 @@
     <![endif]-->
   </head>
 <body>
-    <nav class="navbar navbar-default bg-navbar" role="navigation">
+    <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <div class="row">
                 <div style=" text-aligh:center; padding-left: 2px; padding-right: 2px; font-size:36px;" class="col-sm-2">
@@ -59,8 +59,15 @@
             
         </div>
     </nav>
-    <div class="row">
+    <div class="home_content">
         <div id="map_canvas" class = "left_map"></div>
+        <div class="home_menu">
+            <ul>
+                <li><img src="/images/search1_icon.png"/></li>
+                <li><img src="/images/filter1_icon.png"/></li>
+                <li><img src="/images/layers1_icon.png"/></li>
+            </ul>
+        </div>
         <div class = "right_side_bar"></div>
     </div>
 
