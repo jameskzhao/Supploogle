@@ -61,27 +61,53 @@
             
         </div>
     </nav>
-    <div class="hidden_menu">Here I am !</div>
-    
+    <div>
+
+        <div id="hidden_home_menu_search" class="hidden_menu">
+            <div class="form-group container-fluid">
+                <div class="col-sm-8">
+                    <label for="usr"><h4>Search Map</h4></label>
+                    <input type="text" class="form-control" id="usr">
+                </div>
+            </div>
+
+        </div>
+        <div id="hidden_home_menu_filter" class="hidden_menu">
+            <div class="form-group container-fluid">
+                <div class="col-sm-8">
+                    <label for="usr"><h4>Filters</h4></label>
+                    <input type="text" class="form-control" id="usr">
+                </div>
+            </div>
+        </div>
+        <div id="hidden_home_menu_layers" class="hidden_menu">
+            <div class="form-group container-fluid">
+                <div class="col-sm-8">
+                    <label for="usr"><h4>Layers</h4></label>
+                    <input type="text" class="form-control" id="usr">
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="home_content">
         <div id="map_canvas" class = "left_map"></div>
         <div id="home_menu" class="home_menu">
             <div id="home_menu_search"class="home_menu_item" >
                 <a href="javascript:void(0)" onclick="show_menu('search')">
                     <img src="images/search1_icon.png" >
-                    <img src="images/search2_icon.png" style="display:none;">
+                    
                 </a>
         </div>
             <div id="home_menu_filter"class="home_menu_item" >
                 <a href="javascript:void(0)" onclick="show_menu('filter')">
                     <img src="images/filter1_icon.png" >
-                    <img src="images/filter2_icon.png" style="display:none;">
+                    
                 </a>
             </div>
             <div id="home_menu_layers"class="home_menu_item" > 
                 <a href="javascript:void(0)" onclick="show_menu('layers')">
                     <img src="images/layers1_icon.png" >
-                    <img src="images/layers2_icon.png" style="display:none;">
+                    
                 </a>
             </div>
 

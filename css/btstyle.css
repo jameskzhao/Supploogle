@@ -3,13 +3,13 @@
     z-index: 1000;
     top: 80px;
     float: left;
-    height: 50%;
-    width: 65px;
+    height: 300px;
+    width: 60px;
     background-color: #27376B;
     border-top-right-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
     text-align: center;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 .home_menu_item{
     display: inline-block;
@@ -36,14 +36,15 @@
 .hidden_menu {
     float: left;
     height:350px;
-    width:25%;
+    width:500px;
     z-index:2;
     position:absolute;
     left:-1000px;
-    top:80px;
+    top:70px;
     background:#304387;
-    color:#000;
+    color:#fff;
     padding-left: 100px;
+    padding-top: 10px;
     border-top-right-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
 }
