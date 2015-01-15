@@ -5,7 +5,9 @@
     float: left;
     height: 50%;
     width: 65px;
-    background-color: #304387;
+    background-color: #27376B;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
     text-align: center;
     padding-top: 10px;
 }
@@ -27,6 +29,27 @@
   min-height: 50px;
   margin-bottom: 0;
   border: 1px solid transparent;
+}
+
+
+
+.hidden_menu {
+    float: left;
+    height:350px;
+    width:25%;
+    z-index:2;
+    position:absolute;
+    left:-1000px;
+    top:80px;
+    background:#304387;
+    color:#000;
+    padding-left: 100px;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+.clear {
+    clear:both;
 }
 .navbar-default {
 	background-image: -webkit-linear-gradient(top,#3d56ad 0%,#304387 100%);

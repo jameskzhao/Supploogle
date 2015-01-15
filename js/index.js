@@ -15,6 +15,14 @@ $( document ).ready(function() {
     /*$.getJSON(url, function(listing_object){
         listings = listing_object;
     });*/
+    $('#home_menu').click(function(){
+    var hidden = $('.hidden_menu');
+    if (hidden.hasClass('visible')){
+        hidden.animate({"left":"-1000px"}, "slow").removeClass('visible');
+    } else {
+        hidden.animate({"left":"0px"}, "slow").addClass('visible');
+    }
+    });
 });
 
 function initialize() {

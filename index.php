@@ -10,6 +10,7 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
         <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.11.2/jquery-ui.min.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
         <script type="text/javascript" src="js/data.js"></script>
         <script type="text/javascript" src="js/markerclusterer.js"></script>
@@ -59,22 +60,33 @@
             
         </div>
     </nav>
+    <div class="hidden_menu">Here I am !</div>
+    
     <div class="home_content">
         <div id="map_canvas" class = "left_map"></div>
         <div id="home_menu" class="home_menu">
             <div id="home_menu_search"class="home_menu_item" >
-                <a href="javascript:void(0)" onclick="show_menu('search')"><img src="images/search1_icon.png"/></a>
+                <a href="javascript:void(0)" onclick="show_menu('search')">
+                    <img src="images/search1_icon.png" >
+                    <img src="images/search2_icon.png" style="display:none;">
+                </a>
         </div>
             <div id="home_menu_filter"class="home_menu_item" >
-                <a href="javascript:void(0)" onclick="show_menu('filter')"><img src="images/filter1_icon.png"/></a>
+                <a href="javascript:void(0)" onclick="show_menu('filter')">
+                    <img src="images/filter1_icon.png" >
+                    <img src="images/filter2_icon.png" style="display:none;">
+                </a>
             </div>
             <div id="home_menu_layers"class="home_menu_item" > 
-                <a href="javascript:void(0)" onclick="show_menu('layers')"><img src="images/layers1_icon.png"/></a>
+                <a href="javascript:void(0)" onclick="show_menu('layers')">
+                    <img src="images/layers1_icon.png" >
+                    <img src="images/layers2_icon.png" style="display:none;">
+                </a>
             </div>
-                
-            
+
         </div>
         <div class = "right_side_bar"></div>
+        
     </div>
 
   </body>
