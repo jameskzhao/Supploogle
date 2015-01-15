@@ -114,7 +114,8 @@ function show_menu(arg){
     /*$('#'+arg).css('background-color','#00adef');
     $('#'+arg).siblings().css('background-color', '#fff');*/
     $('#home_menu_'+arg).addClass('selected');
-    $('#home_menu_'+arg).siblings().removeClass('selected');
     //$('#home_menu_'+arg).children().children().attr('src','images/'+arg+'2_icon.png');
+    $('#home_menu_'+arg).siblings().removeClass('selected');
+    //$('#home_menu_'+arg).siblings().children().children().attr('src','images/'+arg+'1_icon.png');
     
 }
