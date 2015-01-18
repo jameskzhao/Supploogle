@@ -12,22 +12,28 @@ var map;
 
 $( document ).ready(function() {
     initialize();
-    /*$.getJSON(url, function(listing_object){
-        listings = listing_object;
-    });*/
-    /*$('#home_menu').click(function(){
-        var selected_id = $('#home_menu').children('.selected').attr('id');
-        var selectd_hidden = $('#hidden_'+selected_id);
-        var all_hidden = $('.hidden_menu');
-        selectd_hidden.siblings().animate({"left":"-1000px"}, 100).removeClass('visible');
-        if (selectd_hidden.hasClass('visible')){
-            selectd_hidden.animate({"left":"-1000px"}, 200).removeClass('visible');
-        } else {
-            selectd_hidden.animate({"left":"0px"}, 200).addClass('visible');
-        }
-    });*/
+    get_suppliers();
 });
+function get_suppliers(){
+    var supplier_array;
+    $.post('php/get_supplier.php',{func:'test'}, function(data){
+        supplier_array = data['supplier_array'];
+        var markers = [];
+        for(i=0; i<supplier_array.length; i++){
+            var dataPhoto = supplier_array[i];
+            var lat_lng = new google.maps.LatLng(dataPhoto.lat, dataPhoto.lng);
+            var new_marker = new google.maps.Marker({
+                position:lat_lng,
+                map:map
+            });
+            markers.push(new_marker);
+            
 
+        }
+        var markerCluster = new MarkerClusterer(map, markers);
+    },'json');
+    
+}
 function initialize() {
     var mapProp = {
         //center:new google.maps.LatLng(51.508742,-0.120850),
@@ -71,27 +77,7 @@ function initialize() {
         sw = bounds.getSouthWest();
         console.log("NorthEast"+ne+"SouthWest"+sw);
     });
-    /*for(var key in markers){
-        var data = markers[key];
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(data[0], data[1]),
-            map: map,
-            //icon: image,
-            title: key
-        });
-    }*/
-    var markers = [];
-    for(i=0; i<data.photos.length; i++){
-        var dataPhoto = data.photos[i];
-        var lat_lng = new google.maps.LatLng(dataPhoto.latitude, dataPhoto.longitude);
-        var new_marker = new google.maps.Marker({
-            position:lat_lng,
-            map:map
-        });
-        markers.push(new_marker);
-        
-    }
-    var markerCluster = new MarkerClusterer(map, markers);
+    
 }
 function handleNoGeolocation(errorFlag){
     if(errorFlag){
