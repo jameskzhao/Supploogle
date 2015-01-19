@@ -18,9 +18,7 @@ function get_suppliers(){
     var supplier_array;
     $.post('php/get_supplier.php',{func:'test'}, function(data){
         supplier_array = data['supplier_array'];
-        console.info(supplier_array);
         var markers = [];
-        //var bounds = new google.maps.LatLngBounds();
         for(i=0; i<supplier_array.length; i++){
             var dataPhoto = supplier_array[i];
             var lat_lng = new google.maps.LatLng(dataPhoto.lat, dataPhoto.lng);
@@ -29,13 +27,10 @@ function get_suppliers(){
                 map:map
             });
             markers.push(new_marker);
-            //bounds.extend( new_marker.getPosition() );
             
 
         }
         var markerCluster = new MarkerClusterer(map, markers);
-        
-        //map.fitBounds( bounds );
     },'json');
     
 }
