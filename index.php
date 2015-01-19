@@ -1,3 +1,6 @@
+<?php 
+    require_once('php/get_category.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -36,6 +39,16 @@
     <![endif]-->
   </head>
 <body>
+    <script type="text/javascript">
+        var raw_category_array = <?php echo json_encode($category_array);?>;
+        var category_array = [];
+        for(var index in raw_category_array){
+            for(property in raw_category_array[index]){
+                category_array.push(property);
+            }
+        }
+        
+    </script>
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <div class="row">
@@ -65,9 +78,20 @@
 
         <div id="hidden_home_menu_search" class="hidden_menu">
             <div class="form-group container-fluid">
-                <div class="col-sm-8">
+                <div class="col-lg-12">
                     <label for="usr"><h4>Search Map</h4></label>
-                    <input type="text" class="form-control" id="keyword">
+                    <input type="text" class="form-control" id="keyword" placeholder="Street, city, country or company keyword...">
+                    
+                    <select class="form-control" id="category_select">
+                        <option>Select Category</option>
+                        
+                    </select>
+                    
+                </div>
+                <div id="sub_category_checkbox_area" class="col-lg-12" style="text-align: center;">
+                        <!--<label class="checkbox-inline">
+                            <input type="checkbox" value="1">Option 1
+                         </label>-->
                 </div>
                 <div class="col-sm-8">
                     <button type="button" class="btn btn-default btn-lg" onclick="update_map()">Search</button>

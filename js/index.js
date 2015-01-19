@@ -15,6 +15,7 @@ var infowindow = new google.maps.InfoWindow({maxWidth:320});
 $( document ).ready(function() {
     initialize();
     get_suppliers();
+    populate_category_dropdown();
 });
 function update_map(){
     var keyword = $('#keyword').val().trim();
@@ -67,6 +68,7 @@ function initialize() {
     var mapProp = {
         //center:new google.maps.LatLng(51.508742,-0.120850),
         zoom:15,
+        minZoom:3,
         mapTypeId:google.maps.MapTypeId.ROADMAP,
         panControl: true,
         panControlOptions: {
@@ -167,4 +169,30 @@ function show_menu(arg){
     //target.siblings().removeClass('selected');
     //$('#home_menu_'+arg).siblings().children().children().attr('src','images/'+arg+'1_icon.png');
     
+}
+
+function populate_category_dropdown(){
+    for(i=0; i<category_array.length;i++){
+        console.log(category_array[i]);
+        $('#category_select').append('<option>'+category_array[i]+'</option>');
+    }
+    $('#category_select').on('change',function(){
+        var subcategory_array = get_subcategory_array(this.value);
+        $('#sub_category_checkbox_area').empty();
+        for(i=0; i<subcategory_array.length;i++){
+            var checkbox_html = '<label class="checkbox-inline"><input type="checkbox" value="'+subcategory_array[i]+'">'+subcategory_array[i]+'</label>';
+            $('#sub_category_checkbox_area').append(checkbox_html);
+            
+        }
+    });
+}
+function get_subcategory_array(category_name){
+    for(var index in raw_category_array){
+        for(property in raw_category_array[index]){
+            if(property===category_name){
+                return (raw_category_array[index][property]);
+            }
+
+        }
+    }
 }
