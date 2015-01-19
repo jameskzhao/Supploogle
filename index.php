@@ -67,7 +67,10 @@
             <div class="form-group container-fluid">
                 <div class="col-sm-8">
                     <label for="usr"><h4>Search Map</h4></label>
-                    <input type="text" class="form-control" id="usr">
+                    <input type="text" class="form-control" id="keyword">
+                </div>
+                <div class="col-sm-8">
+                    <button type="button" class="btn btn-default btn-lg" onclick="update_map()">Search</button>
                 </div>
             </div>
 

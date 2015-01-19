@@ -4,6 +4,8 @@ var ne;
 var sw;
 var listings;
 var map;
+var markers = [];
+var infowindow = new google.maps.InfoWindow({maxWidth:320});
 /*var markers = {
     '3528Vanness':[49.236958, -123.029286],
     '7800Bennett':[49.161017, -123.139208]
@@ -14,11 +16,23 @@ $( document ).ready(function() {
     initialize();
     get_suppliers();
 });
-function get_suppliers(){
+function update_map(){
+    var keyword = $('#keyword').val().trim();
+    get_suppliers(keyword);
+}
+function get_suppliers(keyword,category,subcategories){
     var supplier_array;
-    $.post('php/get_supplier.php',{func:'test'}, function(data){
+    var bounds = new google.maps.LatLngBounds();
+    var post_data = new Object;
+    post_data['keyword']=keyword;
+    post_data['category']=category;
+    post_data['subcategories']=subcategories;//should be an array
+    
+    $.post('php/get_supplier.php',post_data, function(data){
         supplier_array = data['supplier_array'];
-        var markers = [];
+        //console.info(supplier_array);
+        clearMarkers();
+        markers = [];
         for(i=0; i<supplier_array.length; i++){
             var dataPhoto = supplier_array[i];
             var lat_lng = new google.maps.LatLng(dataPhoto.lat, dataPhoto.lng);
@@ -26,13 +40,28 @@ function get_suppliers(){
                 position:lat_lng,
                 map:map
             });
+            bounds.extend(new_marker.getPosition());
             markers.push(new_marker);
-            
+            google.maps.event.addListener(new_marker, 'click', (function(new_marker, i) {
+                return function() {
+                  infowindow.setContent('<a>'+supplier_array[i]['supploogle_name']+'</a>');
+                  infowindow.open(map, new_marker);
+                }
+            })(new_marker, i));
 
         }
         var markerCluster = new MarkerClusterer(map, markers);
+        map.fitBounds(bounds);
     },'json');
     
+}
+function clearMarkers() {
+  setAllMap(null);
+}
+function setAllMap(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
 }
 function initialize() {
     var mapProp = {
@@ -59,12 +88,12 @@ function initialize() {
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(function(position){
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            var infowindow = new google.maps.InfoWindow({
+            /*var infowindow = new google.maps.InfoWindow({
                 map: map,
                 position:pos,
                 content: 'Location found using HTML5'
             });
-            map.setCenter(pos);
+            map.setCenter(pos);*/
         },function(){
             handleNoGeolocation(true);
         },options);
