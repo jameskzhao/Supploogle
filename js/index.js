@@ -19,13 +19,15 @@ $( document ).ready(function() {
 });
 function update_map(){
     var keyword = $('#keyword').val().trim();
-    get_suppliers(keyword);
+    var city = $('#location').val().trim();
+    get_suppliers(keyword, city);
 }
-function get_suppliers(keyword,category,subcategories){
+function get_suppliers(keyword, city, category, subcategories){
     var supplier_array;
     var bounds = new google.maps.LatLngBounds();
     var post_data = new Object;
     post_data['keyword']=keyword;
+    post_data['city']=city;
     post_data['category']=category;
     post_data['subcategories']=subcategories;//should be an array
     

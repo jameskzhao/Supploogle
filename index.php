@@ -13,6 +13,10 @@
         <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
         
         
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.11.2/jquery-ui.min.js"></script>
         <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -74,19 +78,12 @@
             <div class="form-group container-fluid">
                 <div class="col-lg-12">
                     <label for="usr"><h4>Search Map</h4></label>
-                    <input type="text" class="form-control" id="keyword" placeholder="Street, city, country or company keyword...">
+                    <input type="text" class="form-control" id="keyword" placeholder="Street or company keyword...">
+                    <input type="text" class="form-control" id="location" placeholder="City name">
                     
-                    <select class="form-control" id="category_select">
-                        <option>Select Category</option>
-                        
-                    </select>
                     
                 </div>
-                <div id="sub_category_checkbox_area" class="col-lg-12" style="text-align: center;">
-                        <!--<label class="checkbox-inline">
-                            <input type="checkbox" value="1">Option 1
-                         </label>-->
-                </div>
+                
                 <div class="col-sm-8">
                     <button type="button" class="btn btn-default btn-lg" onclick="update_map(); show_menu('search')">Search</button>
                 </div>
@@ -95,9 +92,20 @@
         </div>
         <div id="hidden_home_menu_filter" class="hidden_menu">
             <div class="form-group container-fluid">
-                <div class="col-sm-8">
-                    <label for="usr"><h4>Filters</h4></label>
-                    <input type="text" class="form-control" id="usr">
+                <div class="col-lg-12">
+                    <div class="col-sm-12">
+                        <label for="usr"><h4>Filters</h4></label>
+                        <select class="form-control" id="category_select">
+                            <option>Select Category</option>
+                        </select>
+
+                    </div>
+                </div>
+                
+                <div id="sub_category_checkbox_area" class="col-lg-12" style="text-align: center;">
+                        <!--<label class="checkbox-inline">
+                            <input type="checkbox" value="1">Option 1
+                                </label>-->
                 </div>
             </div>
         </div>
@@ -140,10 +148,6 @@
 
   </body>
  
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
-        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="js/jquery-ui-1.11.2/jquery-ui.min.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
         <script type="text/javascript" src="js/data.js"></script>
         <script type="text/javascript" src="js/markerclusterer.js"></script>

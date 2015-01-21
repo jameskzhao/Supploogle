@@ -11,11 +11,15 @@ require_once('utilities.php');
 error_reporting(0);
 mysql_select_db('supploogle', $useradmin) or die(mysql_error());
 $keyword = isset($_POST['keyword'])?$_POST['keyword']:$_GET['keyword'];
+$city = isset($_POST['city'])?$_POST['city']:$_GET['city'];
 $category = isset($_POST['category'])?$_POST['category']:$_GET['category'];
 $subcategories = isset($_POST['subcategories'])?$_POST['subcategories']:$_GET['subcategories'];
 $filter = '';
 if(!empty($keyword)){
-    $filter.=" AND (duns_name LIKE '%$keyword%' OR supploogle_name LIKE '%$keyword%' OR country LIKE '%$keyword%' OR city LIKE '%$keyword%' OR street LIKE '%$keyword%')";
+    $filter.=" AND (duns_name LIKE '%$keyword%' OR supploogle_name LIKE '%$keyword%' OR country LIKE '%$keyword%' OR street LIKE '%$keyword%')";
+}
+if(!empty($city)){
+    $filter.=" AND city LIKE '%$city%'";
 }
 $selectSQL = "SELECT SQL_CALC_FOUND_ROWS suppliers.ID, supploogle_name, lat, lng FROM suppliers LEFT JOIN supplier_geoaddress ON suppliers.ID = supplier_geoaddress.supplier_id WHERE !ISNULL(lat)".$filter;
 $get_supplier = mysql_query_or_die($selectSQL, $useradmin);
