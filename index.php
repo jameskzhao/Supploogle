@@ -88,7 +88,7 @@
                          </label>-->
                 </div>
                 <div class="col-sm-8">
-                    <button type="button" class="btn btn-default btn-lg" onclick="update_map()">Search</button>
+                    <button type="button" class="btn btn-default btn-lg" onclick="update_map(); show_menu('search')">Search</button>
                 </div>
             </div>
 
