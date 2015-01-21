@@ -45,13 +45,13 @@ function get_suppliers(keyword,category,subcategories){
             markers.push(new_marker);
             google.maps.event.addListener(new_marker, 'click', (function(new_marker, i) {
                 return function() {
-                  infowindow.setContent('<a>'+supplier_array[i]['supploogle_name']+'</a>');
+                  infowindow.setContent('<a target="_blank" href="single.php?id='+supplier_array[i]['ID']+'">'+supplier_array[i]['supploogle_name']+'</a>');
                   infowindow.open(map, new_marker);
                 }
             })(new_marker, i));
 
         }
-        var markerCluster = new MarkerClusterer(map, markers);
+        //var markerCluster = new MarkerClusterer(map, markers);
         map.fitBounds(bounds);
     },'json');
     
@@ -68,7 +68,7 @@ function initialize() {
     var mapProp = {
         //center:new google.maps.LatLng(51.508742,-0.120850),
         zoom:15,
-        minZoom:3,
+        minZoom:2,
         mapTypeId:google.maps.MapTypeId.ROADMAP,
         panControl: true,
         panControlOptions: {
@@ -87,21 +87,23 @@ function initialize() {
         timeout: 5000,
         maximumAge: 0
     };
+    /*
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(function(position){
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            /*var infowindow = new google.maps.InfoWindow({
+            var infowindow = new google.maps.InfoWindow({
                 map: map,
                 position:pos,
                 content: 'Location found using HTML5'
             });
-            map.setCenter(pos);*/
+            map.setCenter(pos);
         },function(){
             handleNoGeolocation(true);
         },options);
     }else{
         alert("Your browser doesn't support Geolocation");
     }
+    */
     google.maps.event.addListener(map, 'bounds_changed', function(){
         bounds = map.getBounds();
         ne = bounds.getNorthEast();
@@ -124,6 +126,13 @@ function handleNoGeolocation(errorFlag){
     var infowindow = new google.maps.InfoWindow(options);
     map.setCenter(options.position);
 }
+/*
+ * Let google map keep its center when user is resizing the window
+ * 
+ * @param {type} param1
+ * @param {type} param2
+ * @param {type} param3
+ */
 google.maps.event.addDomListener(window, "resize", function() {
     var center = map.getCenter();
     google.maps.event.trigger(map, "resize");

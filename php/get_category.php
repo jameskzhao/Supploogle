@@ -21,7 +21,7 @@ while($row_get_category = mysql_fetch_assoc($get_category)){
 
 function get_subcategories($category){
     global $useradmin;
-    $selectSQL = "SELECT DISTINCT sub_category FROM suppliers WHERE category='$category'";
+    $selectSQL = "SELECT DISTINCT sub_category FROM suppliers WHERE category='$category' ORDER BY sub_category ASC";
     $get_subcategories = mysql_query_or_die($selectSQL, $useradmin);
     $subcategory_array = array();
     while ($row_get_subcategory = mysql_fetch_assoc($get_subcategories)){

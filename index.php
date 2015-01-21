@@ -11,14 +11,8 @@
         <link rel="icon" type="image/png" href="images/favicon.png">
         <!-- Goole font for logo -->
         <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
-        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="js/jquery-ui-1.11.2/jquery-ui.min.js"></script>
-        <script src="http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
-        <script type="text/javascript" src="js/data.js"></script>
-        <script type="text/javascript" src="js/markerclusterer.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        
+        
         <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -63,7 +57,7 @@
                         <li class="active"><a href="#">Map</a></li>
                         <li><a href="#">Page 1</a></li>
                         <li><a href="#">Page 2</a></li> 
-                        <li><a href="#">Page 3</a></li> 
+                        <li><a href="#">Services</a></li> 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -117,14 +111,14 @@
         </div>
     </div>
     <div class="home_content">
-        <div id="map_canvas" class = "left_map"></div>
+        
         <div id="home_menu" class="home_menu">
             <div id="home_menu_search"class="home_menu_item" >
                 <a href="javascript:void(0)" onclick="show_menu('search')">
                     <img src="images/search1_icon.png" >
                     
                 </a>
-        </div>
+            </div>
             <div id="home_menu_filter"class="home_menu_item" >
                 <a href="javascript:void(0)" onclick="show_menu('filter')">
                     <img src="images/filter1_icon.png" >
@@ -139,9 +133,19 @@
             </div>
 
         </div>
+        <div id="map_canvas" class = "left_map"></div>
         <div class = "right_side_bar"></div>
         
     </div>
 
   </body>
+ 
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
+        <script type="text/javascript" src="js/data.js"></script>
+        <script type="text/javascript" src="js/markerclusterer.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
 </html>
