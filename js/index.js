@@ -70,7 +70,7 @@ function initialize() {
     var mapProp = {
         //center:new google.maps.LatLng(51.508742,-0.120850),
         zoom:15,
-        minZoom:2,
+        minZoom:3,
         mapTypeId:google.maps.MapTypeId.ROADMAP,
         panControl: true,
         panControlOptions: {

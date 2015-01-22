@@ -69,4 +69,21 @@ function get_geocode($address, $postal_code, $supplier_id){
 			return $resp['status'];
 		}
 	}
-}
+}?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Supploogle</title>
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <!-- Goole font for logo -->
+        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+        
+        <script type="text/javascript">
+            setTimeout(function(){
+                window.location.reload(1);
+             }, 5000);
+        </script>    
+    </head>

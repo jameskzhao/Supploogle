@@ -53,6 +53,16 @@
 .clear {
     clear:both;
 }
+.form_input{
+    margin-bottom: 10px;
+}
+#sub_category_checkbox_area label{
+    width:100px;
+}
+inline+.checkbox-inline {
+    margin-top: 0;
+    margin-left: 0;
+}
 .navbar-default {
 	background-image: -webkit-linear-gradient(top,#3d56ad 0%,#304387 100%);
     background-image: -o-linear-gradient(top,#3d56ad 0%,#304387 100%);
@@ -135,8 +145,8 @@
 }
 .left_map{
     position: absolute;
-    width: 70%;
-    height: 80%;
+    width: 100%;
+    height: 90%;
 }
 /*
 @media screen and (min-width:1000px) {

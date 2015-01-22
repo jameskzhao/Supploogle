@@ -46,10 +46,10 @@ error_reporting(0);
                 $customer_name = $data->val($rowindex, 5, $sheet_index);
                 $category = $data->val($rowindex, 6, $sheet_index);
                 $sub_category = $data->val($rowindex, 7, $sheet_index);
-                $supplier_type = $data->val($rowindex, 8, $sheet_index);
-                $country = $data->val($rowindex, 9, $sheet_index);
-                $city = $data->val($rowindex, 10, $sheet_index);
-                $street = $data->val($rowindex, 11, $sheet_index);
+                $supplier_type = $data->val($rowindex, 11, $sheet_index);
+                $country = $data->val($rowindex, 12, $sheet_index);
+                $city = $data->val($rowindex, 13, $sheet_index);
+                $street = $data->val($rowindex, 14, $sheet_index);
                 $insertValues .= sprintf(',(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
                         GetSQLValueString($supplier_id, 'int'),
                         GetSQLValueString($duns_number, 'int'),

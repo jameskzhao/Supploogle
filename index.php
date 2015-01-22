@@ -78,8 +78,8 @@
             <div class="form-group container-fluid">
                 <div class="col-lg-12">
                     <label for="usr"><h4>Search Map</h4></label>
-                    <input type="text" class="form-control" id="keyword" placeholder="Street or company keyword...">
-                    <input type="text" class="form-control" id="location" placeholder="City name">
+                    <input type="text" class="form-control form_input" id="keyword" placeholder="Street or company keyword...">
+                    <input type="text" class="form-control form_input" id="location" placeholder="City name">
                     
                     
                 </div>
@@ -93,19 +93,22 @@
         <div id="hidden_home_menu_filter" class="hidden_menu">
             <div class="form-group container-fluid">
                 <div class="col-lg-12">
-                    <div class="col-sm-12">
+                    
                         <label for="usr"><h4>Filters</h4></label>
-                        <select class="form-control" id="category_select">
+                        <select class="form-control form_input" id="category_select">
                             <option>Select Category</option>
                         </select>
 
-                    </div>
+                    
                 </div>
                 
-                <div id="sub_category_checkbox_area" class="col-lg-12" style="text-align: center;">
+                <div id="sub_category_checkbox_area" class="col-lg-12 form_input">
                         <!--<label class="checkbox-inline">
                             <input type="checkbox" value="1">Option 1
                                 </label>-->
+                </div>
+                <div class="col-sm-8">
+                    <button type="button" class="btn btn-default btn-lg" onclick="update_map(); show_menu('search')">Apply Filter</button>
                 </div>
             </div>
         </div>
@@ -141,7 +144,7 @@
             </div>
 
         </div>
-        <div id="map_canvas" class = "left_map"></div>
+        <div id="map_canvas" class = "col-lg-12 left_map"></div>
         <div class = "right_side_bar"></div>
         
     </div>
