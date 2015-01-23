@@ -96,7 +96,7 @@
                     
                         <label for="usr"><h4>Filters</h4></label>
                         <select class="form-control form_input" id="category_select">
-                            <option>Select Category</option>
+                            <option valu="">Select Category</option>
                         </select>
 
                     
@@ -108,7 +108,8 @@
                                 </label>-->
                 </div>
                 <div class="col-sm-8">
-                    <button type="button" class="btn btn-default btn-lg" onclick="update_map(); show_menu('search')">Apply Filter</button>
+                    <button type="button" class="btn btn-default btn-lg" onclick="update_map(); show_menu('filter')">Apply Filters</button>
+                    <button type="button" class="btn btn-default btn-lg" onclick="reset_filters(); show_menu('filter')">Reset Filters</button>
                 </div>
             </div>
         </div>
@@ -142,6 +143,11 @@
                     
                 </a>
             </div>
+            <div id="home_menu_layers"class="search_results" > 
+                <span id="supplier_count"></span>
+                Results
+            </div>
+            
 
         </div>
         <div id="map_canvas" class = "col-lg-12 left_map"></div>

@@ -21,6 +21,17 @@ if(!empty($keyword)){
 if(!empty($city)){
     $filter.=" AND city LIKE '%$city%'";
 }
+if(!empty($category)&&$category!='Select Category'){
+    $filter.=" AND category = '$category'";
+}
+if(!empty($subcategories)&&is_array($subcategories)){
+    $filter .= " AND(";
+    for($i=0; $i<count($subcategories);$i++){
+        $filter .= ($i==0? ' ':' OR ')."sub_category = '$subcategories[$i]'";
+    }
+    $filter .=")";
+}
+
 $selectSQL = "SELECT SQL_CALC_FOUND_ROWS suppliers.ID, supploogle_name, lat, lng FROM suppliers LEFT JOIN supplier_geoaddress ON suppliers.ID = supplier_geoaddress.supplier_id WHERE !ISNULL(lat)".$filter;
 $get_supplier = mysql_query_or_die($selectSQL, $useradmin);
 $row=mysql_fetch_row(mysql_query("SELECT FOUND_ROWS()",$useradmin));

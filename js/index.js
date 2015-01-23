@@ -20,7 +20,22 @@ $( document ).ready(function() {
 function update_map(){
     var keyword = $('#keyword').val().trim();
     var city = $('#location').val().trim();
-    get_suppliers(keyword, city);
+    var category = $('#category_select').val();
+    
+    var chkArray = [];
+    /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
+    $("#sub_category_checkbox_area input:checked").each(function() {
+	chkArray.push($(this).val());
+    });
+    //console.info(chkArray);
+    get_suppliers(keyword, city,category,chkArray);
+    
+}
+function reset_filters(){
+     $('#sub_category_checkbox_area input:checkbox').removeAttr('checked');
+     $("#category_select").val($("#category_select option:first").val());
+     $("#sub_category_checkbox_area").empty();
+     update_map();
 }
 function get_suppliers(keyword, city, category, subcategories){
     var supplier_array;
@@ -47,7 +62,7 @@ function get_suppliers(keyword, city, category, subcategories){
             markers.push(new_marker);
             google.maps.event.addListener(new_marker, 'click', (function(new_marker, i) {
                 return function() {
-                  infowindow.setContent('<a target="_blank" href="single.php?id='+supplier_array[i]['ID']+'">'+supplier_array[i]['supploogle_name']+'</a>');
+                  infowindow.setContent('<div class="noscrollbar"><a target="_blank" href="single.php?id='+supplier_array[i]['ID']+'">'+supplier_array[i]['supploogle_name']+'</a></div>');
                   infowindow.open(map, new_marker);
                 }
             })(new_marker, i));
@@ -55,6 +70,7 @@ function get_suppliers(keyword, city, category, subcategories){
         }
         //var markerCluster = new MarkerClusterer(map, markers);
         map.fitBounds(bounds);
+        $('#supplier_count').text(data['count']);
     },'json');
     
 }
