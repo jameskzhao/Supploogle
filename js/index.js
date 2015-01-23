@@ -56,7 +56,8 @@ function get_suppliers(keyword, city, category, subcategories){
             var lat_lng = new google.maps.LatLng(dataPhoto.lat, dataPhoto.lng);
             var new_marker = new google.maps.Marker({
                 position:lat_lng,
-                map:map
+                map:map,
+                icon:'images/factory.png'
             });
             bounds.extend(new_marker.getPosition());
             markers.push(new_marker);
