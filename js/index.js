@@ -21,7 +21,6 @@ function update_map(){
     var keyword = $('#keyword').val().trim();
     var city = $('#location').val().trim();
     var category = $('#category_select').val();
-    
     var chkArray = [];
     /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
     $("#sub_category_checkbox_area input:checked").each(function() {
@@ -36,6 +35,11 @@ function reset_filters(){
      $("#category_select").val($("#category_select option:first").val());
      $("#sub_category_checkbox_area").empty();
      update_map();
+}
+function reset_keywords(){
+    $('#keyword').val('');
+    $('#location').val('');
+    update_map();
 }
 function get_suppliers(keyword, city, category, subcategories){
     var supplier_array;
@@ -190,6 +194,31 @@ function show_menu(arg){
             selectd_hidden.animate({"left":"0px"}, 200).addClass('visible');
         }
     }else{
+        
+            if(arg=='search'){
+                var keyword = $('#keyword').val().trim();
+                var location = $('#location').val().trim();
+                
+                if(keyword.length>0 || location.length>0){
+                    console.log(keyword);
+                    target.addClass('not_empty');
+                }else{
+                    target.removeClass('not_empty');
+                }
+            }
+            if(arg=='filter'){
+                var category = $('#category_select').val();
+                var chkArray = [];
+                /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
+                $("#sub_category_checkbox_area input:checked").each(function() {
+                    chkArray.push($(this).val());
+                });
+                if(category!='Select Category'||chkArray.length>0){
+                    target.addClass('not_empty');
+                }else{
+                    target.removeClass('not_empty');
+                }
+            }
         all_hidden.animate({"left":"-1000px"}, 100).removeClass('visible');
     }
         

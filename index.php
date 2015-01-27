@@ -86,6 +86,7 @@
                 
                 <div class="col-sm-8">
                     <button type="button" class="btn btn-default btn-lg" onclick="update_map(); show_menu('search')">Search</button>
+                    <button type="button" class="btn btn-default btn-lg" onclick="reset_keywords(); show_menu('search')">Reset</button>
                 </div>
             </div>
 

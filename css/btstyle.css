@@ -21,6 +21,9 @@
 #home_menu div.selected{
     background-color:#00adef;
 }
+#home_menu div.not_empty{
+    background-color: orange;
+}
 .search_results{
     margin-top: 5px;
     color:#fff;
