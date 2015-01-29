@@ -15,6 +15,7 @@ var infowindow = new google.maps.InfoWindow({maxWidth:320});
 $( document ).ready(function() {
     initialize();
     get_suppliers();
+    get_ports();
     populate_category_dropdown();
 });
 function update_map(){
@@ -40,6 +41,27 @@ function reset_keywords(){
     $('#keyword').val('');
     $('#location').val('');
     update_map();
+}
+function get_ports(){
+    var ports_array;
+    $.post('php/get_ports.php','',function(data){
+        ports_array=data['ports_array'];
+        var ports_markers = [];
+        for(i=0; i<ports_array.length;i++){
+            var port_data = ports_array[i];
+            var lat_lng = new google.maps.LatLng(port_data.lat, port_data.lng);
+            var new_marker = new google.maps.Marker({
+                position:lat_lng,
+                map:map
+            });
+            google.maps.event.addListener(new_marker, 'click', (function(new_marker, i) {
+                return function() {
+                  infowindow.setContent('<div class="noscrollbar"><span>'+ports_array[i]['port_name']+'</span></div>');
+                  infowindow.open(map, new_marker);
+                }
+            })(new_marker, i));
+        }
+    },'json');
 }
 function get_suppliers(keyword, city, category, subcategories){
     var supplier_array;
