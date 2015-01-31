@@ -97,7 +97,7 @@
                     
                         <label for="usr"><h4>Filters</h4></label>
                         <select class="form-control form_input" id="category_select">
-                            <option valu="">Select Category</option>
+                            <option value="Select Category">Select Category</option>
                         </select>
 
                     
@@ -118,7 +118,10 @@
             <div class="form-group container-fluid">
                 <div class="col-sm-8">
                     <label for="usr"><h4>Layers</h4></label>
-                    <input type="text" class="form-control" id="usr">
+                    <div id="layer_checkbox_area" class="col-lg-12 form_input">
+                        <label class="checkbox-inline"><input id="port_layer_checkbox" type="checkbox" value="ports" checked>Ports</label>
+                    </div>
+                    
                 </div>
             </div>
         </div>

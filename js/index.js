@@ -4,7 +4,8 @@ var ne;
 var sw;
 var listings;
 var map;
-var markers = [];
+var supplier_markers = [];
+var port_markers = [];
 var infowindow = new google.maps.InfoWindow({maxWidth:320});
 /*var markers = {
     '3528Vanness':[49.236958, -123.029286],
@@ -17,6 +18,7 @@ $( document ).ready(function() {
     get_suppliers();
     get_ports();
     populate_category_dropdown();
+    populate_layer_checkbox();
 });
 function update_map(){
     var keyword = $('#keyword').val().trim();
@@ -46,14 +48,16 @@ function get_ports(){
     var ports_array;
     $.post('php/get_ports.php','',function(data){
         ports_array=data['ports_array'];
-        var ports_markers = [];
+        
         for(i=0; i<ports_array.length;i++){
             var port_data = ports_array[i];
             var lat_lng = new google.maps.LatLng(port_data.lat, port_data.lng);
             var new_marker = new google.maps.Marker({
                 position:lat_lng,
-                map:map
+                map:map,
+                icon:'images/shipwreck.png'
             });
+            port_markers.push(new_marker);
             google.maps.event.addListener(new_marker, 'click', (function(new_marker, i) {
                 return function() {
                   infowindow.setContent('<div class="noscrollbar"><span>'+ports_array[i]['port_name']+'</span></div>');
@@ -75,8 +79,8 @@ function get_suppliers(keyword, city, category, subcategories){
     $.post('php/get_supplier.php',post_data, function(data){
         supplier_array = data['supplier_array'];
         //console.info(supplier_array);
-        clearMarkers();
-        markers = [];
+        clearMarkers(supplier_markers);
+        
         for(i=0; i<supplier_array.length; i++){
             var dataPhoto = supplier_array[i];
             var lat_lng = new google.maps.LatLng(dataPhoto.lat, dataPhoto.lng);
@@ -86,7 +90,7 @@ function get_suppliers(keyword, city, category, subcategories){
                 icon:'images/factory.png'
             });
             bounds.extend(new_marker.getPosition());
-            markers.push(new_marker);
+            supplier_markers.push(new_marker);
             google.maps.event.addListener(new_marker, 'click', (function(new_marker, i) {
                 return function() {
                   infowindow.setContent('<div class="noscrollbar"><a target="_blank" href="single.php?id='+supplier_array[i]['ID']+'">'+supplier_array[i]['supploogle_name']+'</a></div>');
@@ -101,12 +105,15 @@ function get_suppliers(keyword, city, category, subcategories){
     },'json');
     
 }
-function clearMarkers() {
-  setAllMap(null);
+function showMarkers(marker_array){
+    setAllMap(marker_array, map);
 }
-function setAllMap(map) {
-  for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
+function clearMarkers(marker_array) {
+    setAllMap(marker_array, null);
+}
+function setAllMap(marker_array, map) {
+  for (var i = 0; i < marker_array.length; i++) {
+    marker_array[i].setMap(map);
   }
 }
 function initialize() {
@@ -264,6 +271,16 @@ function populate_category_dropdown(){
             
         }
     });
+}
+function populate_layer_checkbox(){
+    $('#port_layer_checkbox').change(
+        function(){
+            if(!$(this).is(':checked')){
+                clearMarkers(port_markers);
+            }else{
+                showMarkers(port_markers);
+            }
+        });
 }
 function get_subcategory_array(category_name){
     for(var index in raw_category_array){
