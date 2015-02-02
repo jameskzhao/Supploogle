@@ -58,6 +58,7 @@ function get_ports(){
                 icon:'images/shipwreck.png'
             });
             port_markers.push(new_marker);
+            var port_markerCluster = new MarkerClusterer(map, port_markers);
             google.maps.event.addListener(new_marker, 'click', (function(new_marker, i) {
                 return function() {
                   infowindow.setContent('<div class="noscrollbar"><span>'+ports_array[i]['port_name']+'</span></div>');
@@ -99,7 +100,7 @@ function get_suppliers(keyword, city, category, subcategories){
             })(new_marker, i));
 
         }
-        //var markerCluster = new MarkerClusterer(map, markers);
+        var markerCluster = new MarkerClusterer(map, supplier_markers);
         map.fitBounds(bounds);
         $('#supplier_count').text(data['count']);
     },'json');
