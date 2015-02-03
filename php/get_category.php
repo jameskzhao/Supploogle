@@ -7,9 +7,7 @@
  * and open the template in the editor.
  */
 
-require_once('./database/connect.php');
-require_once('utilities.php');
-mysql_select_db('supploogle', $useradmin) or die(mysql_error());
+require_once './database/common_header.php';
 $selectSQL = "SELECT DISTINCT category FROM suppliers";
 $get_category = mysql_query_or_die($selectSQL, $useradmin);
 $category_array = array();

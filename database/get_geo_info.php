@@ -9,7 +9,7 @@ header("Content-type: text/html; charset=utf-8");
 require_once('../php/utilities.php');
 require_once('connect.php');
 mysql_select_db('supploogle', $useradmin) or die(mysql_error());
-$selectSQL = "SELECT SQL_CALC_FOUND_ROWS suppliers.ID, country, city, street FROM suppliers LEFT JOIN supplier_geoaddress ON suppliers.ID = supplier_geoaddress.supplier_id WHERE ISNULL(lat) ORDER BY RAND() LIMIT 0, 20";
+$selectSQL = "SELECT SQL_CALC_FOUND_ROWS suppliers.ID, country, city, street, postal_code FROM suppliers LEFT JOIN supplier_geoaddress ON suppliers.ID = supplier_geoaddress.supplier_id WHERE ISNULL(lat) ORDER BY RAND() LIMIT 0, 20";
 $get_supplier = mysql_query_or_die($selectSQL, $useradmin);
 $row=mysql_fetch_row(mysql_query("SELECT FOUND_ROWS()",$useradmin));
 echo "There are ".$row[0]." records to be updated<br/>";
@@ -17,8 +17,9 @@ while($row_get_supplier = mysql_fetch_assoc($get_supplier)){
     $country = $row_get_supplier['country'];
     $city = $row_get_supplier['city'];
     $street = $row_get_supplier['street'];
+    $postal_code = $row_get_supplier['postal_code'];
     $address_text = $street.' '.$city.' '.$country;
-    $result = get_geocode($address_text,'',$row_get_supplier['ID']);
+    $result = get_geocode($address_text, $postal_code ,$row_get_supplier['ID']);
     echo $result;
 }
 function get_geocode($address, $postal_code, $supplier_id){
@@ -59,14 +60,7 @@ function get_geocode($address, $postal_code, $supplier_id){
 		}elseif($resp['status']=='OVER_QUERY_LIMIT'){
 			return $resp['status'];
 		}else{
-			/*$insertSQL = sprintf("INSERT INTO listing_geoaddress(sysid, error, updated)VALUES(%s,%s,%s) ON DUPLICATE KEY UPDATE error=%s, updated=%s",
-							GetSQLValueString($sysid,"int"),
-							GetSQLValueString('Y',"text"),
-							GetSQLValueString('N',"text"),
-							GetSQLValueString('Y',"text"),
-							GetSQLValueString('Y',"text"));
-			$result=mysql_query_or_die($insertSQL,$useradmin);*/
-			return $resp['status'];
+                    return $resp['status'];
 		}
 	}
 }?>
