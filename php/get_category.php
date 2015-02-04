@@ -8,7 +8,7 @@
  */
 
 require_once './database/common_header.php';
-$selectSQL = "SELECT DISTINCT category FROM suppliers";
+$selectSQL = "SELECT DISTINCT category FROM suppliers WHERE suppliers.ID >18700000";
 $get_category = mysql_query_or_die($selectSQL, $useradmin);
 $category_array = array();
 while($row_get_category = mysql_fetch_assoc($get_category)){
@@ -19,7 +19,7 @@ while($row_get_category = mysql_fetch_assoc($get_category)){
 
 function get_subcategories($category){
     global $useradmin;
-    $selectSQL = "SELECT DISTINCT sub_category FROM suppliers WHERE category='$category' ORDER BY sub_category ASC";
+    $selectSQL = "SELECT DISTINCT sub_category FROM suppliers WHERE category='$category' AND suppliers.ID >18700000 ORDER BY sub_category ASC";
     $get_subcategories = mysql_query_or_die($selectSQL, $useradmin);
     $subcategory_array = array();
     while ($row_get_subcategory = mysql_fetch_assoc($get_subcategories)){

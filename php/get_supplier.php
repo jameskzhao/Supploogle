@@ -32,7 +32,7 @@ if(!empty($subcategories)&&is_array($subcategories)){
     $filter .=")";
 }
 
-$selectSQL = "SELECT SQL_CALC_FOUND_ROWS suppliers.ID, supploogle_name, lat, lng FROM suppliers LEFT JOIN supplier_geoaddress ON suppliers.ID = supplier_geoaddress.supplier_id WHERE !ISNULL(lat)".$filter;
+$selectSQL = "SELECT SQL_CALC_FOUND_ROWS suppliers.ID, supploogle_name, lat, lng FROM suppliers LEFT JOIN supplier_geoaddress ON suppliers.ID = supplier_geoaddress.supplier_id WHERE !ISNULL(lat) AND ID>18700000".$filter;
 $get_supplier = mysql_query_or_die($selectSQL, $useradmin);
 $row=mysql_fetch_row(mysql_query("SELECT FOUND_ROWS()",$useradmin));
 $supplier_array = array();
