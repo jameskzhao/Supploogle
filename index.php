@@ -1,6 +1,6 @@
 <?php 
+    require_once('load.php');    
     require_once('php/get_category.php');
-    require_once('php/functions.php');
     get_header('Supploogle');
 ?>
     <div>

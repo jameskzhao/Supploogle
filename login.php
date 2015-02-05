@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    require_once('php/functions.php');
+    require_once('load.php');
     get_header('Login');
 ?>
 This is log in page

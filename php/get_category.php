@@ -7,7 +7,9 @@
  * and open the template in the editor.
  */
 
-require_once './database/common_header.php';
+if(!isset($useradmin)){
+    require_once('./load.php');
+}
 $selectSQL = "SELECT DISTINCT category FROM suppliers WHERE suppliers.ID >18700000";
 $get_category = mysql_query_or_die($selectSQL, $useradmin);
 $category_array = array();
