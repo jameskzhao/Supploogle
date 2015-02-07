@@ -7,12 +7,39 @@
  */
     require_once('load.php');
     get_header('Sign Up');
+    $suser->register('login.php');
 ?>
-    <div style="width: 960px; background: #fff; border: 1px solid #e4e4e4; padding: 20px; margin: 10px auto;">
-	<h3>Sign Up</h3>
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            <table>
-                <tr><td colspan="2">Company Info</td></tr>
+    <div class="form-group container-fluid">
+        <div class="col-sm-4">
+            
+            <h3>Sign Up</h3>
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <table class="table table-striped">
+                    <tr>
+                        <td>Username:</td>
+                        <td><input type="text" name="username" class="form-control form_input"/></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" name="password" class="form-control form_input"/></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td><input type="text" name="email" class="form-control form_input"/></td>
+                    </tr>
+                    <input type="hidden" name="date" value="<?php echo $current_time; ?>" />
+                    <tr>
+                        <td></td>
+                        <td><button class="btn btn-default btn-lg">Sign Up!</button><p>Already a member? <a href="login.php">Log in here</a></p></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+	
+    </div>
+
+<?php get_footer();?>
+<!--<tr><td colspan="2">Company Info</td></tr>
 		<tr>
                     <td>Name:</td>
                     <td><input type="text" name="name" /></td>
@@ -32,27 +59,4 @@
                 <tr>
                     <td>Country:</td>
                     <td><input type="text" name="country" /></td>
-		</tr>
-                <tr><td colspan="2">User Login</td></tr>
-		<tr>
-                    <td>Username:</td>
-                    <td><input type="text" name="username" /></td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td><input type="password" name="password" /></td>
-                </tr>
-                <tr>
-                    <td>Email:</td>
-                    <td><input type="text" name="email" /></td>
-		</tr>
-		<input type="hidden" name="date" value="<?php echo time(); ?>" />
-		<tr>
-                    <td></td>
-                    <td><input type="submit" value="Register" /></td>
-		</tr>
-            </table>
-	</form>
-	<p>Already a member? <a href="login.php">Log in here</a></p>
-    </div>
-<?php get_footer();?>
+		</tr>-->

@@ -161,6 +161,12 @@
     overflow:hidden;
     white-space:nowrap;
 }
+
+.alert-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
 /*
 @media screen and (min-width:1000px) {
     .left_map{

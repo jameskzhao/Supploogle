@@ -1,6 +1,7 @@
 <?php
 if(!class_exists('SupploogleDatabase')){
     class SupploogleDatabase{
+        public $link;
         /**
 	 * Connects to the database server and selects a database
 	 *
@@ -28,11 +29,8 @@ if(!class_exists('SupploogleDatabase')){
 	 * @uses the constants defined in config.php
 	 */	
 	function connect() {
-            $link = mysql_connect('localhost', DB_USER, DB_PASS);
-            if (!$link) {
-		die('Could not connect: ' . mysql_error());
-            }
-            $db_selected = mysql_select_db(DB_NAME, $link);
+            $this->link = mysql_connect('localhost', DB_USER, DB_PASS) or die('Could not connect: ' . mysql_error());
+            $db_selected = mysql_select_db(DB_NAME, $this->link);
             if (!$db_selected) {
 		die('Can\'t use ' . DB_NAME . ': ' . mysql_error());
             }
@@ -76,15 +74,13 @@ if(!class_exists('SupploogleDatabase')){
 	 * @param array $fields An array of the fields to insert data into
 	 * @param array $values An array of the values to be inserted
 	 */
-	function insert($link, $table, $fields, $values) {
+	function insert($table, $fields, $values) {
             $fields = implode(", ", $fields);
             $values = implode("', '", $values);
             $sql="INSERT INTO $table (id, $fields) VALUES ('', '$values')";
-            if (!mysql_query($sql)) {
-                die('Error: ' . mysql_error());
-            } else {
-		return TRUE;
-            }
+            echo $sql;
+            $result = mysql_query_or_die($sql, $this->link);
+            return $result;
 	}
 		
 	/**
@@ -98,10 +94,12 @@ if(!class_exists('SupploogleDatabase')){
 	 * @param array $equals The value being searched for
 	 */
 	function select($sql) {
-            $results = mysql_query($sql);
+            $results = mysql_query_or_die($sql, $this->link);
             return $results;
 	}
     }
 }
 $sdb = new SupploogleDatabase;
+$useradmin = $sdb->link;
+//$useradmin = mysql_connect('localhost', DB_USER, DB_PASS);
 ?>
