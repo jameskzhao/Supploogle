@@ -62,20 +62,22 @@
         <div id="home_menu" class="home_menu">
             <div id="home_menu_search"class="home_menu_item" >
                 <a href="javascript:void(0)" onclick="show_menu('search')">
-                    <img src="images/search1_icon.png" >
+                    <!--<img src="images/search1_icon.png" >-->
+                    <img src="images/3.jpg" >
                     
                 </a>
             </div>
             <div id="home_menu_filter"class="home_menu_item" >
                 <a href="javascript:void(0)" onclick="show_menu('filter')">
-                    <img src="images/filter1_icon.png" >
+                    <!--<img src="images/filter1_icon.png" >-->
+                    <img src ="images/5.jpg" >
                     
                 </a>
             </div>
             <div id="home_menu_layers"class="home_menu_item" > 
                 <a href="javascript:void(0)" onclick="show_menu('layers')">
-                    <img src="images/layers1_icon.png" >
-                    
+                    <!--<img src="images/layers1_icon.png" >-->
+                    <img src="images/6.png" >
                 </a>
             </div>
             <div id="home_menu_layers"class="search_results" > 

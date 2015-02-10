@@ -199,16 +199,16 @@ function show_menu(arg){
     var all_hidden = $('.hidden_menu');
     if(target.hasClass('selected')){
         target.removeClass('selected');
-        target.children().children().attr('src','images/'+arg+'1_icon.png');
+        //target.children().children().attr('src','images/'+arg+'1_icon.png');
     }else{
         target.addClass('selected');
-        target.children().children().attr('src','images/'+arg+'2_icon.png');
+        //target.children().children().attr('src','images/'+arg+'2_icon.png');
         target.siblings().removeClass('selected');
         var args = ['search','filter','layers'];
         target.siblings().each(function (idx, el) {
             for(i=0;i<args.length;i++){
                 if(el.id.indexOf(args[i])>-1){
-                    $('#'+el.id).children().children().attr('src','images/'+args[i]+'1_icon.png');
+                    //$('#'+el.id).children().children().attr('src','images/'+args[i]+'1_icon.png');
                     break;
                 }
             }

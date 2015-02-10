@@ -59,15 +59,30 @@ function get_top_nav($title){
                 </div>
                 <div>
                     <ul class="nav navbar-nav">
-                        <li <?php echo ($title=='Supploogle'?'class="active"':'')?>><a href="index.php">Map</a></li>
+                        <li <?php echo ($title=='Supploogle'?'class="active"':'')?>><a href="index.php"><img src="./images/earth.png" width="20"> Map</a></li>
                         <li><a href="#">Page 1</a></li>
                         <li><a href="#">Page 2</a></li> 
                         <li><a href="#">Services</a></li> 
                     </ul>
+                    <?php if(!empty($_SESSION['USER_ID'])&&!empty($_SESSION['COMPANY_ID'])){?>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Welcome <?php echo $_SESSION['USER_NAME']?>
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">My Suppliers</a></li>
+                                <li><a href="logout.php">Log Out</a></li>
+                            </ul>
+                        </li>
+                          
+                    </ul>
+                    <?php }else{?>
                     <ul class="nav navbar-nav navbar-right">
                         <li <?php echo ($title=='Sign Up'?'class="active"':'')?>><a href="sign_up.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                         <li <?php echo ($title=='Login'?'class="active"':'')?>><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
+                    <?php }?>
                 </div>
             </div>
             

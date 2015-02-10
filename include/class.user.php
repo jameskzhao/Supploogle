@@ -2,14 +2,10 @@
 
 if(!class_exists('SupploogleUser')){
     class SupploogleUser{
+        
         function register($redirect){
             global $sdb;
-            //Check to make sure the form submission is coming from our script
-            //The full URL of our registration page
-            $current = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-
-            //The full URL of the page the form was submitted from
-            $referrer = $_SERVER['HTTP_REFERER'];
+            
             if(!empty($_POST)){
                 /* 
 		 * Here we actually run the check to see if the form was submitted from our
@@ -17,7 +13,7 @@ if(!class_exists('SupploogleUser')){
 		 * the form submission didn't come from the register.php page on our server,
 		 * we don't allow the data through.
 		 */
-		if ( $referrer == $current ) {
+		if ( $this->check_referrer() ) {
                     //Set up the variables we'll need to pass to our insert method
                     //This is the name of the table we want to insert data into
                     $table = 'users';
@@ -71,6 +67,10 @@ if(!class_exists('SupploogleUser')){
                             $insert = $sdb->insert($table, $fields, $values);
                             
                             if ( $insert == TRUE ) {
+                                $user_id = mysql_insert_id();
+                                $_SESSION['USER_ID'] = $user_id;
+                                $_SESSION['USER_NAME'] = $username;
+                                $_SESSION['USER_EMAIL'] = $useremail;
                                 $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
                                 $aredirect = str_replace('register.php', $redirect, $url);
                                 echo $redirect;
@@ -90,6 +90,121 @@ if(!class_exists('SupploogleUser')){
                     
 		}
             }
+        }
+        function register_company($redirect){
+            global $sdb;
+            if(!empty($_POST)){
+                if($this->check_referrer()){
+                    $company_name = $_POST['company_name'];
+                    $company_street = $_POST['company_street'];
+                    $company_city = $_POST['company_city'];
+                    $company_province = $_POST['company_province'];
+                    $company_country = $_POST['company_country'];
+                    $company_postalcode = $_POST['company_postalcode'];
+                    if(!empty($company_name)&&!empty($company_street)
+                            &&!empty($company_city)&&!empty($company_province)
+                            &&!empty($company_country)&&!empty($company_postalcode)){
+                        $table = "customers";
+                        $fields = array('name', 'street', 'city', 'province', 'country', 'postal_code');
+                        $values = array(
+                            'name'          =>$company_name,
+                            'street'        =>$company_street,
+                            'city'          =>$company_city,
+                            'province'      =>$company_province,
+                            'country'       =>$company_country,
+                            'postal_code'   =>$company_postalcode
+                        );
+                        $insert = $sdb->insert($table, $fields, $values);
+                        if ( $insert == TRUE ) {
+                            $company_id = mysql_insert_id();
+                            $_SESSION['COMPANY_ID'] = $company_id;
+                            $_SESSION['COMPANY_NAME'] = $company_name;
+                            $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+                            $aredirect = str_replace('register.php', $redirect, $url);
+                            header("Location: $redirect?reg=true");
+                            exit;
+                        }
+                    }else{
+                        $error_message = '<div class="alert alert-error">
+                                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                            <strong>Error!</strong> All fields are required. Please fill up all the fields.
+                                        </div>';
+                    }
+                    if(isset($error_message)){
+                        echo $error_message;
+                    }
+                }
+                
+            }
+        }
+        function login($redirect){
+            global $sdb;
+            if (!empty($_POST)){
+                //Clean our form data
+                $values = $sdb->clean($_POST);
+                //The username and password submitted by the user
+                $subname = $values['username'];
+		$subpass = $values['password'];
+                $table = 'users';
+                /*
+		 * Run our query to get all data from the users table where the user 
+		 * login matches the submitted login.
+		 */
+		$sql = "SELECT * FROM $table WHERE user_name = '" . $subname . "'";
+		$results = $sdb->select($sql);
+                //Kill the script if the submitted username doesn't exit
+                if (!$results) {
+                    die('Sorry, that username does not exist!');
+		}
+                //Fetch our results into an associative array
+		$results = mysql_fetch_assoc( $results );
+		//The registration date of the stored matching user
+		$storeg = $results['user_registered'];
+		//The hashed password of the stored matching user
+		$stopass = $results['user_pass'];
+                //Recreate our NONCE used at registration
+		$nonce = md5('registration-' . $subname . $storeg . NONCE_SALT);
+                //Rehash the submitted password to see if it matches the stored hash
+		$subpass = $sdb->hash_password($subpass, $nonce);
+                //Check to see if the submitted password matches the stored password
+		if ( $subpass == $stopass ) {
+                    //If there's a match, we rehash password to store in a cookie
+                    $authnonce = md5('cookie-' . $subname . $storeg . AUTH_SALT);
+                    $authID = $sdb->hash_password($subpass, $authnonce);
+                    //Set our authorization cookie
+                    setcookie('supploogleauth[user]', $subname, 0, '', '', '', true);
+                    setcookie('supploogleauth[authID]', $authID, 0, '', '', '', true);
+                    //Build our redirect
+                    $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+                    $redirect = str_replace('login.php', $redirect, $url);
+                    //Redirect to the home page
+                    header("Location: $redirect");
+			exit;	
+                    } else {
+			return 'invalid';
+                    }
+            } else {
+		return 'empty';
+            }
+            
+        }
+        function check_referrer(){
+            //Check to make sure the form submission is coming from our script
+            //The full URL of our registration page
+            $current = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+            //The full URL of the page the form was submitted from
+            $referrer = $_SERVER['HTTP_REFERER'];
+            if($referrer==$current){
+                return true;
+            }else{
+                return false;
+            }
+            
+        }
+        function log_out(){
+            session_destroy();
+            header('Location: ');
         }
     }
 }

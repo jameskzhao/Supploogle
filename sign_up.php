@@ -8,11 +8,14 @@
     require_once('load.php');
     get_header('Sign Up');
     $suser->register('login.php');
-?>
-    <div class="form-group container-fluid">
-        <div class="col-sm-4">
+ ?>
+    <div class="form-group container-fluid ">
+        <div class="col-md-4 col-md-offset-4 panel panel-default">
             
-            <h3>Sign Up</h3>
+            <h3 class="text-center">Sign Up</h3>
+            <div class="alert alert-warning" role="alert">
+                <strong>Notice:</strong> Only members of <strong>customer companies</strong> or <strong>suppliers</strong> can sign up.
+            </div>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <table class="table table-striped">
                     <tr>
@@ -37,6 +40,8 @@
         </div>
 	
     </div>
+
+
 
 <?php get_footer();?>
 <!--<tr><td colspan="2">Company Info</td></tr>
