@@ -6,14 +6,14 @@ if(!class_exists('SupploogleUser')){
         function register($redirect){
             global $sdb;
             
-            if(!empty($_POST)){
+            if(!empty($_POST)&&$this->check_referrer()){
                 /* 
 		 * Here we actually run the check to see if the form was submitted from our
 		 * site. Since our registration from submits to itself, this is pretty easy. If
 		 * the form submission didn't come from the register.php page on our server,
 		 * we don't allow the data through.
 		 */
-		if ( $this->check_referrer() ) {
+		
                     //Set up the variables we'll need to pass to our insert method
                     //This is the name of the table we want to insert data into
                     $table = 'users';
@@ -88,13 +88,13 @@ if(!class_exists('SupploogleUser')){
                         echo $error_message;
                     }
                     
-		}
+		
             }
         }
         function register_company($redirect){
             global $sdb;
-            if(!empty($_POST)){
-                if($this->check_referrer()){
+            if(!empty($_POST)&&$this->check_referrer()){
+                
                     $company_name = $_POST['company_name'];
                     $company_street = $_POST['company_street'];
                     $company_city = $_POST['company_city'];
@@ -117,12 +117,23 @@ if(!class_exists('SupploogleUser')){
                         $insert = $sdb->insert($table, $fields, $values);
                         if ( $insert == TRUE ) {
                             $company_id = mysql_insert_id();
-                            $_SESSION['COMPANY_ID'] = $company_id;
-                            $_SESSION['COMPANY_NAME'] = $company_name;
-                            $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-                            $aredirect = str_replace('register.php', $redirect, $url);
-                            header("Location: $redirect?reg=true");
-                            exit;
+                            $table = "user_customers";
+                            $fields = array('user_id','customer_id','admin_level');
+                            $values = array(
+                                'user_id'=>$_SESSION['USER_ID'],
+                                'company_id'=>$company_id,
+                                'admin_level'=>9
+                            );
+                            $insert = $sdb->insert($table, $fields, $values);
+                            if($insert == TRUE){
+                                $_SESSION['COMPANY_ID'] = $company_id;
+                                $_SESSION['COMPANY_NAME'] = $company_name;
+                                $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+                                $aredirect = str_replace('register.php', $redirect, $url);
+                                header("Location: $redirect?reg=true");
+                                exit;
+                            }
+                            
                         }
                     }else{
                         $error_message = '<div class="alert alert-error">
@@ -133,24 +144,26 @@ if(!class_exists('SupploogleUser')){
                     if(isset($error_message)){
                         echo $error_message;
                     }
-                }
+                
                 
             }
         }
         function login($redirect){
             global $sdb;
-            if (!empty($_POST)){
+            if (!empty($_POST)&&$this->check_referrer()){
                 //Clean our form data
                 $values = $sdb->clean($_POST);
                 //The username and password submitted by the user
                 $subname = $values['username'];
 		$subpass = $values['password'];
+                
                 $table = 'users';
                 /*
 		 * Run our query to get all data from the users table where the user 
 		 * login matches the submitted login.
 		 */
 		$sql = "SELECT * FROM $table WHERE user_name = '" . $subname . "'";
+               
 		$results = $sdb->select($sql);
                 //Kill the script if the submitted username doesn't exit
                 if (!$results) {
@@ -158,28 +171,47 @@ if(!class_exists('SupploogleUser')){
 		}
                 //Fetch our results into an associative array
 		$results = mysql_fetch_assoc( $results );
+                
 		//The registration date of the stored matching user
 		$storeg = $results['user_registered'];
 		//The hashed password of the stored matching user
 		$stopass = $results['user_pass'];
+                
                 //Recreate our NONCE used at registration
 		$nonce = md5('registration-' . $subname . $storeg . NONCE_SALT);
                 //Rehash the submitted password to see if it matches the stored hash
 		$subpass = $sdb->hash_password($subpass, $nonce);
+                
                 //Check to see if the submitted password matches the stored password
 		if ( $subpass == $stopass ) {
+                    
                     //If there's a match, we rehash password to store in a cookie
                     $authnonce = md5('cookie-' . $subname . $storeg . AUTH_SALT);
                     $authID = $sdb->hash_password($subpass, $authnonce);
                     //Set our authorization cookie
                     setcookie('supploogleauth[user]', $subname, 0, '', '', '', true);
                     setcookie('supploogleauth[authID]', $authID, 0, '', '', '', true);
+                    
+                    //Set session variables
+                    $_SESSION['USER_ID']=$results['ID'];
+                    $_SESSION['USER_NAME']=$results['user_name'];
+                    $sql = "SELECT user_customers.* FROM users LEFT JOIN user_customers ON users.ID = user_customers.user_id WHERE users.ID=".$_SESSION['USER_ID'];
+                    $results = $sdb->select($sql);
+                    if (!$results) {
+                        die('Sorry, no company info found.');//this should redirect to register company page
+                    }
+                    
+                    $results = mysql_fetch_assoc($results);
+                    var_dump($results);
+                    $_SESSION['COMPANY_ID']= $results['customer_id'];
+                    
                     //Build our redirect
                     $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
                     $redirect = str_replace('login.php', $redirect, $url);
+                    
                     //Redirect to the home page
                     header("Location: $redirect");
-			exit;	
+			//exit;	
                     } else {
 			return 'invalid';
                     }
@@ -204,7 +236,10 @@ if(!class_exists('SupploogleUser')){
         }
         function log_out(){
             session_destroy();
-            header('Location: ');
+            $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+            $redirect = str_replace('logout.php', 'index.php', $url);
+            header("Location: $redirect");
+            exit;
         }
     }
 }

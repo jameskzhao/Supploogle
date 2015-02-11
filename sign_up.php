@@ -7,7 +7,7 @@
  */
     require_once('load.php');
     get_header('Sign Up');
-    $suser->register('login.php');
+    $suser->register('sign_up_company.php');
  ?>
     <div class="form-group container-fluid ">
         <div class="col-md-4 col-md-offset-4 panel panel-default">

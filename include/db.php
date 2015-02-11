@@ -77,7 +77,7 @@ if(!class_exists('SupploogleDatabase')){
 	function insert($table, $fields, $values) {
             $fields = implode(", ", $fields);
             $values = implode("', '", $values);
-            $sql="INSERT INTO $table (id, $fields) VALUES ('', '$values')";
+            $sql="INSERT INTO $table ($fields) VALUES ('$values')";
             echo $sql;
             $result = mysql_query_or_die($sql, $this->link);
             return $result;
