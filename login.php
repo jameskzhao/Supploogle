@@ -14,7 +14,7 @@ if(empty($_SESSION['USER_ID']) || empty($_SESSION['COMPANY_ID'])){
     ?>
 
     <div class="form-group container-fluid ">
-            <div class="col-md-4 col-md-offset-4 panel panel-default">
+            <div class="col-md-4 col-md-offset-4 panel panel-default main_form">
 
                 <h3 class="text-center">Login</h3>
 

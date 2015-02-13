@@ -33,12 +33,28 @@ function get_header($title){
         get_top_nav($title);
 }
 
-function get_footer(){?>
+function get_footer($page){?>
      </body>
+     
+    <?php
+    if(isset($page)){
+        switch($page){
+            case 'index':
+                $script_html='<script src="http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>';
+                $script_html.='<script type="text/javascript" src="js/markerclusterer.js"></script>';
+                $script_html.='<script type="text/javascript" src="js/index.js"></script>';
+            break;
+            case 'sign_up_company':
+                $script_html = '';
+                $script_html.='<script type="text/javascript" src="js/sign_up_company.js"></script>';
+            break;
+        default :
+            $script_html='';
+        }
+        echo $script_html;
+    }
     
-        <script src="http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
-        <script type="text/javascript" src="js/markerclusterer.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+    ?>
 </html>
 <?php
 }

@@ -9,8 +9,8 @@
     get_header('Sign Up');
     $suser->register('sign_up_company.php');
  ?>
-    <div class="form-group container-fluid ">
-        <div class="col-md-4 col-md-offset-4 panel panel-default">
+    <div class="form-group container-fluid">
+        <div class="col-md-4 col-md-offset-4 panel panel-default main_form">
             
             <h3 class="text-center">Sign Up</h3>
             <div class="alert alert-warning" role="alert">
@@ -43,7 +43,7 @@
 
 
 
-<?php get_footer();?>
+<?php get_footer('sign_up');?>
 <!--<tr><td colspan="2">Company Info</td></tr>
 		<tr>
                     <td>Name:</td>
