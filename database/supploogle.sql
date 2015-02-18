@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: 127.0.0.1
--- 生成日期: 2015 年 02 月 03 日 06:21
+-- 生成日期: 2015 年 02 月 18 日 18:26
 -- 服务器版本: 5.5.27
 -- PHP 版本: 5.4.7
 
@@ -19,6 +19,37 @@ SET time_zone = "+00:00";
 --
 -- 数据库: `supploogle`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+CREATE TABLE IF NOT EXISTS `customers` (
+  `ID` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `street` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `city` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `province` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `country` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `postal_code` varchar(50) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `name` (`name`),
+  KEY `country` (`country`),
+  KEY `postal_code` (`postal_code`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- 转存表中的数据 `customers`
+--
+
+INSERT INTO `customers` (`ID`, `name`, `street`, `city`, `province`, `country`, `postal_code`) VALUES
+(1, '1', '2', '3', '4', '5', '6'),
+(2, 'fdas', 'fdas', 'fad', 'fdsa', 'fdas', 'fdasdsafa'),
+(3, 'test company 1', 'street', 'city', 'province', 'country', 'postal'),
+(4, 'test company 1', 'street', 'city', 'province', 'country', 'postal');
 
 -- --------------------------------------------------------
 
@@ -8950,6 +8981,56 @@ INSERT INTO `supplier_geoaddress` (`supplier_id`, `lat`, `lng`) VALUES
 (18701994, 29.17940400, 104.99673700),
 (18701995, 29.58022900, 105.05843300),
 (18701996, 35.37418390, 116.98103140);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `ID` int(20) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `user_pass` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `user_email` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `user_registered` datetime NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `user_name` (`user_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+
+--
+-- 转存表中的数据 `users`
+--
+
+INSERT INTO `users` (`ID`, `user_name`, `user_pass`, `user_email`, `user_registered`) VALUES
+(13, 'admin', '120d28d22f219fbc8a28cdb6b653777c860768a50e48badd7f2fedabc11bcde614b7e5ceb7ae4bdb709187b1776bbee782de2064f28e4a58f89954d0b2af3a3b', 'james@city365.ca', '2015-02-10 07:17:16'),
+(14, 'trest', '8303adbec3ebedfde502f3c6155dad77699b922aacbbc7fdaaeba64ac083ed49edb8de75d75bfe3f88c1ce8dbf8df673cc69faae52df3da4a538551f922e9e5c', 'da', '2015-02-10 07:21:14'),
+(15, 'adminfdsafdasfdasf', '7d8539006bc7a874252bfbb62cda689ed2b9bc525980ac79d0c8eab1f905cb58b4aca0b61a79741ed23c7a20799e898ad1cd05c0a3e00cf52bad02688993ba08', 'dsafdsafdsafdasfsa', '2015-02-10 07:22:18'),
+(16, 'james', 'f95ee11fc27b072e11db82d703907421ad23c0195e2d66f679f13b6ae448fa83b1da75ec2ac7c517d12824e0d549606b6e011f98a3125b748993e153a4c04edb', 'james.k.zhao@gmail.com', '2015-02-10 07:32:11'),
+(17, 'james1', '210ad9d8bfbb748cfaae628bad80056f2e64f019a1c8ee24d56b4a5296aee1161a9b92f6ff33dfcffd5c798b8f4f73da2342f3e7baa502de8c5c1ff0cbc629c3', 'jamesking', '2015-02-10 07:44:40'),
+(18, 'jameskzhao', '0927dd8ce3fc659b1258e9a1de4695df83eedb4f1c2e425c36a1b4d57afb3c3bef6d8561a44c953bb19e81f695d174e574bb892d29a7f5ba5a5646dc3bacd2da', 'james@123.com', '2015-02-11 06:24:39'),
+(19, 'newuser', '5508d6b632eb2fb54cbdf5de7c099692d39f5c1c5f2a5089d91288039db5519f17b1088e59608ecf27e6c33696935fb245d70b24d2e58492a10482ebfc76254e', 'newuser', '2015-02-13 08:19:31');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `user_customers`
+--
+
+DROP TABLE IF EXISTS `user_customers`;
+CREATE TABLE IF NOT EXISTS `user_customers` (
+  `user_id` int(20) NOT NULL,
+  `customer_id` int(20) NOT NULL,
+  `admin_level` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 转存表中的数据 `user_customers`
+--
+
+INSERT INTO `user_customers` (`user_id`, `customer_id`, `admin_level`) VALUES
+(18, 4, 9);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
