@@ -46,7 +46,7 @@ function reset_keywords(){
 }
 function get_ports(){
     var ports_array;
-    $.post('php/get_ports.php','',function(data){
+    $.post('../php/get_ports.php','',function(data){
         ports_array=data['ports_array'];
         
         for(i=0; i<ports_array.length;i++){
@@ -118,6 +118,7 @@ function setAllMap(marker_array, map) {
   }
 }
 function initialize() {
+    
     var mapProp = {
         //center:new google.maps.LatLng(51.508742,-0.120850),
         zoom:15,
@@ -135,11 +136,31 @@ function initialize() {
         streetViewControl: false
     };
     map=new google.maps.Map(document.getElementById("map_canvas"),mapProp);
-    var options = {
+    /*$('#map_canvas').gmap3({
+        map:{
+            options:{
+                //center:new google.maps.LatLng(51.508742,-0.120850),
+                zoom:15,
+                minZoom:3,
+                mapTypeId:google.maps.MapTypeId.ROADMAP,
+                panControl: true,
+                panControlOptions: {
+                    position: google.maps.ControlPosition.TOP_RIGHT
+                },
+                zoomControl: true,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.DEFAULT,
+                    position: google.maps.ControlPosition.RIGHT_CENTER
+                },
+                streetViewControl: false
+            }
+        }
+    });*/
+   /* var options = {
         enableHighAccuracy: true,
         timeout: 5000,
         maximumAge: 0
-    };
+    };*/
     /*
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(function(position){
@@ -157,12 +178,12 @@ function initialize() {
         alert("Your browser doesn't support Geolocation");
     }
     */
-    google.maps.event.addListener(map, 'bounds_changed', function(){
+   /* google.maps.event.addListener(map, 'bounds_changed', function(){
         bounds = map.getBounds();
         ne = bounds.getNorthEast();
         sw = bounds.getSouthWest();
         console.log("NorthEast"+ne+"SouthWest"+sw);
-    });
+    });*/
     
 }
 function handleNoGeolocation(errorFlag){

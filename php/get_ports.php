@@ -5,10 +5,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once('../database/connect.php');
-require_once('utilities.php');
+require_once '../load.php';
 error_reporting(0);
-mysql_select_db('supploogle', $useradmin) or die(mysql_error());
+
 $selectSQL = "SELECT SQL_CALC_FOUND_ROWS * FROM ports WHERE !ISNULL(lat)";
 $get_ports = mysql_query_or_die($selectSQL, $useradmin);
 $row=mysql_fetch_row(mysql_query("SELECT FOUND_ROWS()",$useradmin));

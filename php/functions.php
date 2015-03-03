@@ -41,6 +41,7 @@ function get_footer($page){?>
         switch($page){
             case 'index':
                 $script_html='<script src="http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>';
+                $script_html.='<script type="text/javascript" src="js/gmap3.min.js"></script>';
                 $script_html.='<script type="text/javascript" src="js/markerclusterer.js"></script>';
                 $script_html.='<script type="text/javascript" src="js/index.js"></script>';
             break;

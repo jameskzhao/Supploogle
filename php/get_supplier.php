@@ -6,10 +6,8 @@
  * and open the template in the editor.
  */
 
-require_once('../database/connect.php');
-require_once('utilities.php');
+require_once '../load.php';
 error_reporting(0);
-mysql_select_db('supploogle', $useradmin) or die(mysql_error());
 $keyword = isset($_POST['keyword'])?$_POST['keyword']:$_GET['keyword'];
 $city = isset($_POST['city'])?$_POST['city']:$_GET['city'];
 $category = isset($_POST['category'])?$_POST['category']:$_GET['category'];

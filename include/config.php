@@ -10,15 +10,23 @@
  */
 define('DB_NAME', 'Supploogle');
 
-/* DB Username
- * Enter the username of the user with access to the database below.
- */
-define('DB_USER', 'root');
 
-/* DB Password
- * Enter the above user's password below.
- */
-define('DB_PASS', '');
+ if($server_name=='supploogle.thegege.com'){
+    /* DB Username
+     * Enter the username of the user with access to the database below.
+     */
+     define('DB_USER', 'supploogle_admin');
+
+    /* DB Password
+     * Enter the above user's password below.
+     */
+     define('DB_PASS', '7nv7~c=lKp,^');
+ }else{
+     define('DB_USER', 'root');
+     define('DB_PASS', '');
+        
+ }
+
 
 //SALT Information
 
