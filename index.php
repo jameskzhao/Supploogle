@@ -6,11 +6,11 @@
     <div>
 
         <div id="hidden_home_menu_search" class="hidden_menu">
-            <div class="form-group container-fluid">
-                <div class="col-lg-12">
+            <div class="container-fluid">
+                <div class="form-group has-feedback">
                     <label for="usr"><h4>Search Map</h4></label>
-                    <input type="text" class="form-control form_input" id="keyword" placeholder="Street or company keyword...">
-                    <input type="text" class="form-control form_input" id="location" placeholder="City name">
+                    <input type="text" class="form-control form_input" id="keyword" placeholder="Enter an address...">
+                    
                     
                     
                 </div>
@@ -62,14 +62,13 @@
         <div id="home_menu" class="home_menu">
             <div id="home_menu_search"class="home_menu_item" >
                 <a href="javascript:void(0)" onclick="show_menu('search')">
-                    <img src="images/search1_icon.png" >
-                    <!--<img src="images/3.jpg" >-->
+                    <i class="fa fa-search fa-2x"></i>
                     
                 </a>
             </div>
             <div id="home_menu_filter"class="home_menu_item" >
                 <a href="javascript:void(0)" onclick="show_menu('filter')">
-                    <img src="images/filter1_icon.png" >
+                    <i class="fa fa-filter fa-2x"></i>
                     <!--<img src ="images/5.jpg" >-->
                     
                     
@@ -77,7 +76,7 @@
             </div>
             <div id="home_menu_layers"class="home_menu_item" > 
                 <a href="javascript:void(0)" onclick="show_menu('layers')">
-                    <img src="images/layers1_icon.png" >
+                    <i class="fa fa-map-marker fa-2x"></i>
                     <!--<img src="images/6.png" >-->
                 </a>
             </div>

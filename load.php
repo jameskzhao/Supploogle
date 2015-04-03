@@ -3,11 +3,12 @@
     //require_once(dirname(__FILE__) . '/include/config.php');
     //require_once(dirname(__FILE__) . '/include/db.php');
     //require_once(dirname(__FILE__) . '/php/utilities.php');
-    header("Content-type: text/html; charset=utf-8");
+    //header("Content-type: text/html; charset=utf-8");
     session_start();
     $server_name =  $_SERVER['SERVER_NAME'];
-    if($server_name=='supploogle.thegege.com'){
-        $project_root = $_SERVER['DOCUMENT_ROOT'];
+    if($server_name=='supploogle.com'){
+        $project_root = $_SERVER['DOCUMENT_ROOT'].'/supploogle';
+	//echo $project_root;
         error_reporting(E_ALL);
     }else{
         $project_root = $_SERVER['DOCUMENT_ROOT'].'/Supploogle';
@@ -25,4 +26,3 @@
     $current_timestamp = get_GMT(microtime(true));
     $current_time = date("Y-m-d H:i:s",$current_timestamp);
     
-?>

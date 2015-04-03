@@ -26,7 +26,8 @@ if(!class_exists('SupploogleUser')){
                     $userpass = $_POST['password'];
                     $useremail = $_POST['email'];
                     $userreg = $_POST['date'];
-                    if(!empty($username)&&!empty($userpass)&&!empty($useremail)){
+                    if(!empty($username)&&!empty($userpass)&&!empty($useremail)&&filter_var($useremail, FILTER_VALIDATE_EMAIL)){
+                        
                         $get_user_by_username = $sdb->select("SELECT * FROM users WHERE user_name='$username'");
                         $get_user_by_useremail = $sdb->select("SELECT * FROM users WHERE user_email='$useremail'");
                         $row_get_user = mysql_fetch_assoc($get_user_by_username);
@@ -73,7 +74,7 @@ if(!class_exists('SupploogleUser')){
                                 $_SESSION['USER_EMAIL'] = $useremail;
                                 $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
                                 $aredirect = str_replace('register.php', $redirect, $url);
-                                echo $redirect;
+                                //echo $redirect;
                                 header("Location: $redirect?reg=true");
                                 exit;
                             }
@@ -83,6 +84,12 @@ if(!class_exists('SupploogleUser')){
                                             <a href="#" class="close" data-dismiss="alert">&times;</a>
                                             <strong>Error!</strong> All fields are required. Please fill up all the fields.
                                         </div>';
+                        if(!filter_var($useremail, FILTER_VALIDATE_EMAIL)){
+                            $error_message = '<div class="alert alert-error">
+                                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                            <strong>Error!</strong> Email address not valid!</a>
+                                        </div>';
+                        }
                     }
                     if(isset($error_message)){
                         echo $error_message;
@@ -95,33 +102,49 @@ if(!class_exists('SupploogleUser')){
             global $sdb;
             if(!empty($_POST)&&$this->check_referrer()){
                 
+                    
                     $company_name = $_POST['company_name'];
+                    $company_type = $_POST['company_type'];
                     $company_street = $_POST['company_street'];
                     $company_city = $_POST['company_city'];
                     $company_province = $_POST['company_province'];
                     $company_country = $_POST['company_country'];
                     $company_postalcode = $_POST['company_postalcode'];
-                    if(!empty($company_name)&&!empty($company_street)
+                    if(!empty($company_name)
+                            &&!empty($company_type)
+                            &&!empty($company_street)
                             &&!empty($company_city)&&!empty($company_province)
                             &&!empty($company_country)&&!empty($company_postalcode)){
-                        $table = "customers";
-                        $fields = array('name', 'street', 'city', 'province', 'country', 'postal_code');
+                        $table = "business";
+                        $fields = array('business_name', 'business_address', 'business_country', 'business_postal_code','business_type');
+                        switch($company_type){
+                            case 'customer':
+                                $business_type = 'C';
+                                break;
+                            case 'supplier':
+                                $business_type = 'S';
+                                break;
+                            case 'logistic':
+                                $business_type = 'L';
+                                break;
+                        }
+                        
                         $values = array(
-                            'name'          =>$company_name,
-                            'street'        =>$company_street,
-                            'city'          =>$company_city,
-                            'province'      =>$company_province,
-                            'country'       =>$company_country,
-                            'postal_code'   =>$company_postalcode
+                            'business_name'         =>$company_name,
+                            'business_address'      =>$company_street.', '.$company_city.', '.$company_province,
+                            'business_country'      =>$company_country,
+                            'business_postal_code'  =>$company_postalcode,
+                            'business_type'         =>$business_type
                         );
                         $insert = $sdb->insert($table, $fields, $values);
                         if ( $insert == TRUE ) {
                             $company_id = mysql_insert_id();
-                            $table = "user_customers";
-                            $fields = array('user_id','customer_id','admin_level');
+                            $table = "user_business";
+                            $fields = array('user_id','business_id','business_type','admin_level');
                             $values = array(
                                 'user_id'=>$_SESSION['USER_ID'],
                                 'company_id'=>$company_id,
+                                'business_type'=>$business_type,
                                 'admin_level'=>9
                             );
                             $insert = $sdb->insert($table, $fields, $values);
@@ -195,26 +218,34 @@ if(!class_exists('SupploogleUser')){
                     //Set session variables
                     $_SESSION['USER_ID']=$results['ID'];
                     $_SESSION['USER_NAME']=$results['user_name'];
-                    $sql = "SELECT user_customers.* FROM users LEFT JOIN user_customers ON users.ID = user_customers.user_id WHERE users.ID=".$_SESSION['USER_ID'];
+                    $sql = "SELECT user_business.* FROM users LEFT JOIN user_business ON users.ID = user_business.user_id WHERE users.ID=".$_SESSION['USER_ID'];
                     $results = $sdb->select($sql);
                     if (!$results) {
                         die('Sorry, no company info found.');//this should redirect to register company page
                     }
                     
                     $results = mysql_fetch_assoc($results);
-                    var_dump($results);
-                    $_SESSION['COMPANY_ID']= $results['customer_id'];
+                    if(empty($results['business_id'])){
+                        $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+                        $redirect = str_replace('login.php', 'sign_up_company.php', $url);
+                        //echo $redirect;
+                        header("Location: $redirect");
+                    }else{
+                        $_SESSION['COMPANY_ID']= $results['business_id'];
+                        $_SESSION['COMPANY_TYPE']=$results['business_type'];
                     
-                    //Build our redirect
-                    $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-                    $redirect = str_replace('login.php', $redirect, $url);
+                        //Build our redirect
+                        $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+                        $redirect = str_replace('login.php', $redirect, $url);
+
+                        //Redirect to the home page
+                        header("Location: $redirect");
+                            //exit;	
+                        } 
+                }else{
+                    return 'invalid';
+                }
                     
-                    //Redirect to the home page
-                    header("Location: $redirect");
-			//exit;	
-                    } else {
-			return 'invalid';
-                    }
             } else {
 		return 'empty';
             }
@@ -241,6 +272,21 @@ if(!class_exists('SupploogleUser')){
             header("Location: $redirect");
             exit;
         }
+        /*
+         * returns all user information
+         */
+        function get_user_info($user_id){
+            global $sdb;
+            
+            $sql = "SELECT users.*, business.* FROM users".
+                    " LEFT JOIN user_business ON users.ID=user_business.user_id".
+                    " LEFT JOIN business ON user_business.business_id = business.business_id WHERE users.ID = '" . $user_id . "'";
+            $results = $sdb->select($sql);
+            $user_info = mysql_fetch_assoc($results);
+            
+            return $user_info;
+        }
+        
     }
 }
 $suser = new SupploogleUser;

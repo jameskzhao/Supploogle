@@ -1,0 +1,13 @@
+[03-Mar-2015 02:42:04 UTC] PHP Warning:  mysql_pconnect(): Access denied for user 'root'@'localhost' (using password: NO) in /home/thegege/public_html/supploogle/database/connect.php on line 12
+[03-Mar-2015 02:42:04 UTC] PHP Fatal error:  Access denied for user 'root'@'localhost' (using password: NO) in /home/thegege/public_html/supploogle/database/connect.php on line 12
+[03-Mar-2015 02:43:42 UTC] PHP Notice:  Undefined index: keyword in /home/thegege/public_html/supploogle/php/get_supplier.php on line 10
+[03-Mar-2015 02:43:42 UTC] PHP Notice:  Undefined index: city in /home/thegege/public_html/supploogle/php/get_supplier.php on line 12
+[03-Mar-2015 02:43:42 UTC] PHP Notice:  Undefined index: category in /home/thegege/public_html/supploogle/php/get_supplier.php on line 13
+[03-Mar-2015 02:43:42 UTC] PHP Notice:  Undefined index: subcategories in /home/thegege/public_html/supploogle/php/get_supplier.php on line 14
+[03-Mar-2015 02:43:48 UTC] PHP Notice:  Undefined index: city in /home/thegege/public_html/supploogle/php/get_supplier.php on line 12
+[03-Mar-2015 02:43:48 UTC] PHP Notice:  Undefined index: category in /home/thegege/public_html/supploogle/php/get_supplier.php on line 13
+[03-Mar-2015 02:43:48 UTC] PHP Notice:  Undefined index: subcategories in /home/thegege/public_html/supploogle/php/get_supplier.php on line 14
+[03-Mar-2015 02:44:19 UTC] PHP Notice:  Undefined index: keyword in /home/thegege/public_html/supploogle/php/get_supplier.php on line 10
+[03-Mar-2015 02:44:19 UTC] PHP Notice:  Undefined index: city in /home/thegege/public_html/supploogle/php/get_supplier.php on line 12
+[03-Mar-2015 02:44:19 UTC] PHP Notice:  Undefined index: category in /home/thegege/public_html/supploogle/php/get_supplier.php on line 13
+[03-Mar-2015 02:44:19 UTC] PHP Notice:  Undefined index: subcategories in /home/thegege/public_html/supploogle/php/get_supplier.php on line 14

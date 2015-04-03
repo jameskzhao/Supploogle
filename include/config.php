@@ -11,7 +11,7 @@
 define('DB_NAME', 'Supploogle');
 
 
- if($server_name=='supploogle.thegege.com'){
+ if($server_name=='supploogle.com'){
     /* DB Username
      * Enter the username of the user with access to the database below.
      */

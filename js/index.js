@@ -136,6 +136,55 @@ function initialize() {
         streetViewControl: false
     };
     map=new google.maps.Map(document.getElementById("map_canvas"),mapProp);
+    var input = document.getElementById('keyword');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo('bounds',map);
+    var marker = new google.maps.Marker({
+        map: map,
+        anchorPoint: new google.maps.Point(0, -29)
+    });
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        infowindow.close();
+        marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+          return;
+        }
+
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+          map.fitBounds(place.geometry.viewport);
+        } else {
+          map.setCenter(place.geometry.location);
+          map.setZoom(12);  // Why 17? Because it looks good. 12 looks better....
+        }
+        marker.setIcon(  ({
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
+        
+       
+        var address = '';
+        if (place.address_components) {
+          address = [
+            (place.address_components[0] && place.address_components[0].short_name || ''),
+            (place.address_components[1] && place.address_components[1].short_name || ''),
+            (place.address_components[2] && place.address_components[2].short_name || '')
+          ].join(' ');
+        }
+
+        google.maps.event.addListener(marker, 'click', (function(marker) {
+                return function() {
+                  infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+                  infowindow.open(map, marker);
+                }
+            })(marker));
+    });
     /*$('#map_canvas').gmap3({
         map:{
             options:{
@@ -248,7 +297,7 @@ function show_menu(arg){
         
             if(arg=='search'){
                 var keyword = $('#keyword').val().trim();
-                var location = $('#location').val().trim();
+                //var location = $('#location').val().trim();
                 
                 if(keyword.length>0 || location.length>0){
                     console.log(keyword);

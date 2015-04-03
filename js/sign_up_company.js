@@ -1,4 +1,4 @@
-function show_form(div_name){
+/*function show_form(div_name){
     $('#'+div_name).show();
     $('#'+div_name).siblings().hide();
 }
@@ -12,4 +12,4 @@ $( "#company_type" ).change(function() {
         $('#customer_form').hide();
         $('#supplier_form').hide();
     }
-});
+});*/
