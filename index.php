@@ -84,7 +84,7 @@
             
 
         </div>
-        <div>
+        <div class="text-right">
             <div id="home_menu_layers" class="search_results" > 
                 <span class="label label-info"> <span id="supplier_count"></span> &nbsp; Results</span>
             </div>

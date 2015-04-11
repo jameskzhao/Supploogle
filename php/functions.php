@@ -24,6 +24,7 @@ function get_header($title){
         load_scripts();
     echo '</head>';
     echo '<body>';
+    include_once('analyticstracking.php');
     get_top_nav($title);
 }
 
@@ -40,6 +41,7 @@ function get_footer($page){
             break;
             case 'sign_up_company':
                 $script_html = '';
+                $script_html.='<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>';
                 $script_html.='<script type="text/javascript" src="js/sign_up_company.js"></script>';
             break;
             case 'profile':
@@ -50,8 +52,15 @@ function get_footer($page){
             case 'customer_map':
                 $script_html = '';
                 $script_html.='<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>';
-                $script_html.='<script type="text/javascript" src="js/index.js"></script>';
+                
                 $script_html.='<script type="text/javascript" src="js/customer_map.js"></script>';
+            break;
+            case 'single':
+                $script_html = '';
+                $script_html.='<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>';
+                
+                $script_html.='<script type="text/javascript" src="js/Chart.min.js"></script>';
+                $script_html.='<script type="text/javascript" src="js/single.js"></script>';
             break;
         default :
             $script_html='';
@@ -75,12 +84,10 @@ function get_top_nav($title){
                 $top_nav_html.='<div>';
                     $top_nav_html.='<ul class="nav navbar-nav">';
                         $top_nav_html.='<li '.($title=='Supploogle'?'class="active"':'').'><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>';
-                        if(isset($_SESSION['COMPANY_TYPE'])&&$_SESSION['COMPANY_TYPE']=='C'){
-                            $top_nav_html.='<li '.($title=='Customer Map'?'class="active"':'').'><a href="customer_map.php">Customer Map</a></li>';
-                        }
-                        $top_nav_html.='<li><a href="#">Page 1</a></li>';
-                        $top_nav_html.='<li><a href="#">Page 2</a></li>';
-                        $top_nav_html.='<li><a href="#">Services</a></li>';
+                        
+                        $top_nav_html.='<li '.($title=='Customer Map'?'class="active"':'').'><a href="customer_map.php"><span class="glyphicon glyphicon-globe"></span> My Suppliers</a></li>';
+                        
+                        
                     $top_nav_html.='</ul>';
                     if(!empty($_SESSION['USER_ID'])&&!empty($_SESSION['COMPANY_ID'])){
                     $top_nav_html.='<ul class="nav navbar-nav navbar-right">';

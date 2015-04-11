@@ -79,7 +79,8 @@ function get_suppliers(keyword, city, category, subcategories){
     
     $.post('php/get_supplier.php',post_data, function(data){
         supplier_array = data['supplier_array'];
-        //console.info(supplier_array);
+        
+        console.info(supplier_array);
         clearMarkers(supplier_markers);
         
         for(i=0; i<supplier_array.length; i++){
@@ -94,7 +95,7 @@ function get_suppliers(keyword, city, category, subcategories){
             supplier_markers.push(new_marker);
             google.maps.event.addListener(new_marker, 'click', (function(new_marker, i) {
                 return function() {
-                  infowindow.setContent('<div class="noscrollbar"><a target="_blank" href="single.php?id='+supplier_array[i]['ID']+'">'+supplier_array[i]['supploogle_name']+'</a></div>');
+                  infowindow.setContent('<div class="noscrollbar"><a target="_blank" href="single.php?id='+supplier_array[i]['business_id']+'">'+supplier_array[i]['business_name']+'</a></div>');
                   infowindow.open(map, new_marker);
                 }
             })(new_marker, i));

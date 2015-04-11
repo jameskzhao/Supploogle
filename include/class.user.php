@@ -103,20 +103,20 @@ if(!class_exists('SupploogleUser')){
             if(!empty($_POST)&&$this->check_referrer()){
                 
                     
-                    $company_name = $_POST['company_name'];
+                    $business_name = $_POST['business_name'];
+                    $business_address = $_POST['business_address'];
+                    $business_country = $_POST['business_country'];
+                    $lat = $_POST['lat'];
+                    $lng = $_POST['lng'];
+                    $business_postal_code = $_POST['business_postal_code'];
                     $company_type = $_POST['company_type'];
-                    $company_street = $_POST['company_street'];
-                    $company_city = $_POST['company_city'];
-                    $company_province = $_POST['company_province'];
-                    $company_country = $_POST['company_country'];
-                    $company_postalcode = $_POST['company_postalcode'];
-                    if(!empty($company_name)
-                            &&!empty($company_type)
-                            &&!empty($company_street)
-                            &&!empty($company_city)&&!empty($company_province)
-                            &&!empty($company_country)&&!empty($company_postalcode)){
+                    if(!empty($business_name)
+                            &&!empty($business_address)
+                            &&!empty($business_country)
+                            &&!empty($lat)&&!empty($lng)
+                            &&!empty($business_postal_code)&&!empty($company_type)){
                         $table = "business";
-                        $fields = array('business_name', 'business_address', 'business_country', 'business_postal_code','business_type');
+                        $fields = array('business_name', 'business_address', 'business_country', 'business_postal_code','lat','lng','business_type');
                         switch($company_type){
                             case 'customer':
                                 $business_type = 'C';
@@ -130,10 +130,12 @@ if(!class_exists('SupploogleUser')){
                         }
                         
                         $values = array(
-                            'business_name'         =>$company_name,
-                            'business_address'      =>$company_street.', '.$company_city.', '.$company_province,
-                            'business_country'      =>$company_country,
-                            'business_postal_code'  =>$company_postalcode,
+                            'business_name'         =>$business_name,
+                            'business_address'      =>$business_address,
+                            'business_country'      =>$business_country,
+                            'business_postal_code'  =>$business_postal_code,
+                            'lat'                   =>$lat,
+                            'lng'                   =>$lng,
                             'business_type'         =>$business_type
                         );
                         $insert = $sdb->insert($table, $fields, $values);
@@ -150,7 +152,7 @@ if(!class_exists('SupploogleUser')){
                             $insert = $sdb->insert($table, $fields, $values);
                             if($insert == TRUE){
                                 $_SESSION['COMPANY_ID'] = $company_id;
-                                $_SESSION['COMPANY_NAME'] = $company_name;
+                                $_SESSION['COMPANY_NAME'] = $business_name;
                                 $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
                                 $aredirect = str_replace('register.php', $redirect, $url);
                                 header("Location: $redirect?reg=true");

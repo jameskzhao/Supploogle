@@ -22,16 +22,20 @@ if(empty($_SESSION['USER_ID']) || empty($_SESSION['COMPANY_ID'])){
 }
 $supplier_id = isset($_POST['id'])?$_POST['id']:$_GET['id'];
 if(!empty($supplier_id)){
-    $selectSQL = "SELECT * FROM suppliers LEFT JOIN supplier_geoaddress ON suppliers.ID = supplier_geoaddress.supplier_id WHERE ID=$supplier_id";
+    $selectSQL = "SELECT * FROM business WHERE business_id=$supplier_id";
     $get_supplier = mysql_query_or_die($selectSQL, $useradmin);
     $supplier_array = array();
     while($row_get_supplier=mysql_fetch_assoc($get_supplier)){
         array_push($supplier_array, $row_get_supplier);
     }
+    //var_dump($supplier_array);
     ?>
+<script type="text/javascript">
+    var supplier_array = <?php echo json_encode($supplier_array);?>;
+</script>
     <div class="form-group container-fluid">
     
-    <div id="user_info" class="col-md-4 col-md-offset-4 panel panel-default main_form">
+    <div class="col-md-8 col-md-offset-2 panel panel-default main_form">
         <h3 class="text-center">Company Detail</h3>
         <table class="table table-striped">
             <tr>
@@ -39,7 +43,7 @@ if(!empty($supplier_id)){
                     Company Name:
                 </td>
                 <td>
-                    <?php echo $supplier_array[0]['supploogle_name'];?>
+                    <?php echo $supplier_array[0]['business_name'];?>
                 </td>
             </tr>
             <tr>
@@ -47,20 +51,94 @@ if(!empty($supplier_id)){
                     Category:
                 </td>
                 <td>
-                    <?php echo $supplier_array[0]['category'];?>
+                    <?php echo $supplier_array[0]['business_category'];?>
                 </td>
             </tr>
             <tr>
                 <td>
-                    Sub Category:
+                    Payment Term:
                 </td>
                 <td>
-                    <?php echo $supplier_array[0]['sub_category'];?>
+                    <canvas id="payment_term" width="400px" height="250px"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Lead Time:
+                </td>
+                <td>
+                    <canvas id="lead_time" width="400px" height="250px"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    PPM:
+                </td>
+                <td>
+                    <canvas id="ppm" width="400px" height="250px"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    OTTR:
+                </td>
+                <td>
+                    <canvas id="ottr" width="400px" height="250px"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    PPV:
+                </td>
+                <td>
+                    <canvas id="ppv" width="400px" height="250px"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Part Variety:
+                </td>
+                <td>
+                    <canvas id="part_variety" width="400px" height="250px"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Part Quantity:
+                </td>
+                <td>
+                    <canvas id="part_quantity" width="400px" height="250px"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Spend:
+                </td>
+                <td>
+                    <canvas id="spend" width="400px" height="250px"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Shipment Frequency:
+                </td>
+                <td>
+                    <canvas id="shipment_frequency" width="400px" height="250px"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Score:
+                </td>
+                <td>
+                    <canvas id="score" width="400px" height="250px"></canvas>
                 </td>
             </tr>
         </table>
     </div>
+        
         <?php
+        get_footer('single');
 }else{
     echo "No supplier id found";
 }

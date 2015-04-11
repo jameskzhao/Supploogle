@@ -8,7 +8,7 @@
 
 require_once '../load.php';
 error_reporting(0);
-$keyword = isset($_POST['keyword'])?$_POST['keyword']:$_GET['keyword'];
+/*$keyword = isset($_POST['keyword'])?$_POST['keyword']:$_GET['keyword'];
 $city = isset($_POST['city'])?$_POST['city']:$_GET['city'];
 $category = isset($_POST['category'])?$_POST['category']:$_GET['category'];
 $subcategories = isset($_POST['subcategories'])?$_POST['subcategories']:$_GET['subcategories'];
@@ -29,8 +29,8 @@ if(!empty($subcategories)&&is_array($subcategories)){
     }
     $filter .=")";
 }
-
-$selectSQL = "SELECT SQL_CALC_FOUND_ROWS business_id, business_name, lat, lng FROM business WHERE !ISNULL(lat) AND (business_parent_id IS NULL OR business_parent_id=0)".$filter;
+*/
+$selectSQL = "SELECT SQL_CALC_FOUND_ROWS business_id, business_name, lat, lng FROM business WHERE !ISNULL(lat) AND business_parent_id=".$_SESSION['COMPANY_ID'];
 $get_supplier = mysql_query_or_die($selectSQL, $useradmin);
 $row=mysql_fetch_row(mysql_query("SELECT FOUND_ROWS()",$useradmin));
 $supplier_array = array();

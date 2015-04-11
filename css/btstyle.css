@@ -13,6 +13,9 @@
     padding:5px 0 15px;
     
 }
+.home_menu_customer{
+    top:150px;
+}
 .home_menu_item{
     display: inline-block;
     width:38px;
@@ -65,7 +68,35 @@
     margin-bottom: 20px;
 }
 #company_map{
-    height: 300px;
+    height: 250px;
+}
+body
+{
+	//text-align: center;
+	margin: 0 auto;
+}
+#box
+{
+	//border: red dotted 5px;
+	//text-align: center;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	z-index: 1000;
+	display: none;
+        height: 200px;
+        margin-top: -100px;
+
+        width: 600px;
+        margin-left: -300px;
+}
+
+#screen
+{
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: #000;
 }
 .clear {
     clear:both;
