@@ -227,23 +227,26 @@ if(!class_exists('SupploogleUser')){
                     }
                     
                     $results = mysql_fetch_assoc($results);
-                    if(empty($results['business_id'])){
-                        $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-                        $redirect = str_replace('login.php', 'sign_up_company.php', $url);
-                        //echo $redirect;
-                        header("Location: $redirect");
-                    }else{
-                        $_SESSION['COMPANY_ID']= $results['business_id'];
-                        $_SESSION['COMPANY_TYPE']=$results['business_type'];
                     
-                        //Build our redirect
-                        $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-                        $redirect = str_replace('login.php', $redirect, $url);
+                        if(empty($results['business_id'])){
+                            $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+                            $redirect = str_replace('login.php', 'sign_up_company.php', $url);
+                            //echo $redirect;
+                            header("Location: $redirect");
+                        }else{
+                            $_SESSION['COMPANY_ID']= $results['business_id'];
+                            $_SESSION['COMPANY_TYPE']=$results['business_type'];
 
-                        //Redirect to the home page
-                        header("Location: $redirect");
-                            //exit;	
-                        } 
+                            //Build our redirect
+                            $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+                            $redirect = str_replace('login.php', $redirect, $url);
+
+                            //Redirect to the home page
+                            header("Location: $redirect");
+                                //exit;	
+                        }
+                    
+                     
                 }else{
                     return 'invalid';
                 }

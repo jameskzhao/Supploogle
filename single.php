@@ -134,6 +134,23 @@ if(!empty($supplier_id)){
                     <canvas id="score" width="400px" height="250px"></canvas>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Strategy by Product:
+                </td>
+                <td>
+                    <?php echo $supplier_array[0]['strategy_by_product']?>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    Strategy by Company:
+                </td>
+                <td>
+                    <?php echo $supplier_array[0]['strategy_by_company']?>
+                </td>
+            </tr>
         </table>
     </div>
         

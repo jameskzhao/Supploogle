@@ -8,20 +8,21 @@
 
 require_once '../load.php';
 error_reporting(0);
-/*$keyword = isset($_POST['keyword'])?$_POST['keyword']:$_GET['keyword'];
-$city = isset($_POST['city'])?$_POST['city']:$_GET['city'];
+$keyword = isset($_POST['keyword'])?$_POST['keyword']:$_GET['keyword'];
+//$city = isset($_POST['city'])?$_POST['city']:$_GET['city'];
 $category = isset($_POST['category'])?$_POST['category']:$_GET['category'];
-$subcategories = isset($_POST['subcategories'])?$_POST['subcategories']:$_GET['subcategories'];
+//$subcategories = isset($_POST['subcategories'])?$_POST['subcategories']:$_GET['subcategories'];
 $filter = '';
-if(!empty($keyword)){
+/*if(!empty($keyword)){
     $filter.=" AND (duns_name LIKE '%$keyword%' OR supploogle_name LIKE '%$keyword%' OR country LIKE '%$keyword%' OR street LIKE '%$keyword%')";
 }
 if(!empty($city)){
     $filter.=" AND city LIKE '%$city%'";
-}
+}*/
 if(!empty($category)&&$category!='Select Category'){
-    $filter.=" AND category = '$category'";
+    $filter.=" AND business_category = '$category'";
 }
+/*
 if(!empty($subcategories)&&is_array($subcategories)){
     $filter .= " AND(";
     for($i=0; $i<count($subcategories);$i++){
@@ -30,7 +31,7 @@ if(!empty($subcategories)&&is_array($subcategories)){
     $filter .=")";
 }
 */
-$selectSQL = "SELECT SQL_CALC_FOUND_ROWS business_id, business_name, lat, lng FROM business WHERE !ISNULL(lat) AND business_parent_id=".$_SESSION['COMPANY_ID'];
+$selectSQL = "SELECT SQL_CALC_FOUND_ROWS business_id, business_name, lat, lng FROM business WHERE !ISNULL(lat) AND business_parent_id=".$_SESSION['COMPANY_ID'].$filter;
 $get_supplier = mysql_query_or_die($selectSQL, $useradmin);
 $row=mysql_fetch_row(mysql_query("SELECT FOUND_ROWS()",$useradmin));
 $supplier_array = array();

@@ -6,19 +6,18 @@
 var d = new Date();
 var this_year = d.getFullYear();
 var column_prefix_array = ['payment_term','lead_time','ppm','ottr','ppv','part_variety','part_quantity','spend','shipment_frequency','score'];
+
 for(i=0; i<column_prefix_array.length;i++){
     var column_prefix = column_prefix_array[i];
-    var value_string = get_value_string(column_prefix);
+    var value_string = get_value_array(column_prefix);
     var data = get_data('Payment Term', value_string);
     var term = document.getElementById(column_prefix).getContext('2d');
     var term_line_chart = new Chart(term).Line(data);
 }
 
-
-// Get the context of the canvas element we want to select
-
-
-
+/*
+ * functions
+ */
 
 function get_data(label_name, value_array){
     
@@ -41,8 +40,7 @@ function get_data(label_name, value_array){
     console.info(temp_data);
     return temp_data;
 }
-function get_value_string(column_prefix){
+function get_value_array(column_prefix){
     var temp_array = [supplier_array[0][column_prefix+'_ytd'], supplier_array[0][column_prefix+'_1_year_ago'], supplier_array[0][column_prefix+'_2_years_ago'], supplier_array[0][column_prefix+'_3_years_ago'], supplier_array[0][column_prefix+'_4_years_ago']];
-    console.info(temp_array);
     return temp_array;
 }

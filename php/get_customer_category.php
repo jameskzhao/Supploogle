@@ -10,7 +10,7 @@
 if(!isset($useradmin)){
     require_once('./load.php');
 }
-$selectSQL = "SELECT DISTINCT business_category FROM business WHERE business_parent_id IS NULL";
+$selectSQL = "SELECT DISTINCT business_category FROM business WHERE business_parent_id=".$_SESSION['COMPANY_ID'];;
 $get_category = mysql_query_or_die($selectSQL, $useradmin);
 $category_array = array();
 while($row_get_category = mysql_fetch_assoc($get_category)){

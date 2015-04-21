@@ -37,6 +37,7 @@ function get_footer($page){
                 $script_html ='<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>';
                 
                 $script_html.='<script type="text/javascript" src="js/markerclusterer.js"></script>';
+                $script_html.='<script type="text/javascript" src="js/markerwithlabel.js"></script>';
                 $script_html.='<script type="text/javascript" src="js/index.js"></script>';
             break;
             case 'sign_up_company':

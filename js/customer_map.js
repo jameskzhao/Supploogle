@@ -77,7 +77,7 @@ function add_supplier_return(){
 $( document ).ready(function() {
     initialize();
     get_suppliers();
-    //populate_category_dropdown();
+    populate_category_dropdown();
     //populate_layer_checkbox();
     
 });
@@ -199,12 +199,14 @@ function save_business_return(){
 function update_map(){
     var keyword = $('#keyword').val().trim();
     //var city = $('#location').val().trim();
-    //var category = $('#category_select').val();
-    var chkArray = [];
+    var category = $('#category_select').val();
+    console.log(category);
+    get_suppliers(keyword,category);
+    //var chkArray = [];
     /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
-    $("#sub_category_checkbox_area input:checked").each(function() {
+    /*$("#sub_category_checkbox_area input:checked").each(function() {
 	chkArray.push($(this).val());
-    });
+    });*/
     //console.info(chkArray);
     //get_suppliers(keyword, city,category,chkArray);
     
@@ -244,14 +246,14 @@ function get_ports(){
         }
     },'json');
 }
-function get_suppliers(keyword, city, category, subcategories){
+function get_suppliers(keyword, category){
     var supplier_array;
     var bounds = new google.maps.LatLngBounds();
     var post_data = new Object;
     post_data['keyword']=keyword;
-    post_data['city']=city;
+    
     post_data['category']=category;
-    post_data['subcategories']=subcategories;//should be an array
+    
     
     $.post('php/get_customer_supplier.php',post_data, function(data){
         supplier_array = data['supplier_array'];

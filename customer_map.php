@@ -9,13 +9,13 @@
             exit;
         }elseif(empty($_SESSION['USER_ID'])){
             $url = "http" . ((!empty($_SERVER['HTTPS'])) ? "s" : "") . "://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-            $redirect = str_replace('customer_map.php', 'login.php', $url);
+            $redirect = str_replace('customer_map.php', 'login.php?redirect=customer_map.php', $url);
             header("Location: $redirect");
             exit;
         }
     }
     get_header('Customer Map');
-    require_once('php/get_category.php');
+    require_once('php/get_customer_category.php');
     
 ?>
     <div>
@@ -362,12 +362,12 @@
 
   <script type="text/javascript">
         var raw_category_array = <?php echo json_encode($category_array);?>;
-        var category_array = [];
-        for(var index in raw_category_array){
+        var category_array = raw_category_array;
+        /*for(var index in raw_category_array){
             for(property in raw_category_array[index]){
                 category_array.push(property);
             }
-        }
+        }*/
         
   </script>
  

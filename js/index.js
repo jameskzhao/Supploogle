@@ -3,7 +3,7 @@ var bounds;
 var ne;
 var sw;
 var listings;
-var map;
+var map, markerCluster;
 var supplier_markers = [];
 var port_markers = [];
 var infowindow = new google.maps.InfoWindow({maxWidth:320});
@@ -15,93 +15,157 @@ var infowindow = new google.maps.InfoWindow({maxWidth:320});
 
 $( document ).ready(function() {
     initialize();
-    get_suppliers();
-    get_ports();
+    get_suppliers('','','',['S','C','L','port','show_name']);
+    
     populate_category_dropdown();
     populate_layer_checkbox();
 });
 function update_map(){
     var keyword = $('#keyword').val().trim();
-    var city = $('#location').val().trim();
+    //var city = $('#location').val().trim();
     var category = $('#category_select').val();
-    var chkArray = [];
-    /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
-    $("#sub_category_checkbox_area input:checked").each(function() {
-	chkArray.push($(this).val());
+    var country = $('#country').val().trim();
+    var checked_business_type_array = [];
+    
+    $('#layer_checkbox_area input:checked').each(function(){
+        checked_business_type_array.push($(this).val());
     });
+    console.info(checked_business_type_array);
+    get_suppliers(keyword, country, category,checked_business_type_array);
+    //var chkArray = [];
+    /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
+    /*$("#sub_category_checkbox_area input:checked").each(function() {
+	chkArray.push($(this).val());
+    });*/
     //console.info(chkArray);
-    get_suppliers(keyword, city,category,chkArray);
+    //get_suppliers(keyword, city,category,chkArray);
     
 }
 function reset_filters(){
-     $('#sub_category_checkbox_area input:checkbox').removeAttr('checked');
+     //$('#sub_category_checkbox_area input:checkbox').removeAttr('checked');
      $("#category_select").val($("#category_select option:first").val());
      $("#sub_category_checkbox_area").empty();
      update_map();
 }
 function reset_keywords(){
     $('#keyword').val('');
-    $('#location').val('');
+    
+    $('#country').val('');
     update_map();
 }
-function get_ports(){
-    var ports_array;
-    $.post('../php/get_ports.php','',function(data){
-        ports_array=data['ports_array'];
-        
-        for(i=0; i<ports_array.length;i++){
-            var port_data = ports_array[i];
-            var lat_lng = new google.maps.LatLng(port_data.lat, port_data.lng);
-            var new_marker = new google.maps.Marker({
-                position:lat_lng,
-                map:map,
-                icon:'images/shipwreck.png'
-            });
-            port_markers.push(new_marker);
-            //var port_markerCluster = new MarkerClusterer(map, port_markers);
-            google.maps.event.addListener(new_marker, 'click', (function(new_marker, i) {
-                return function() {
-                  infowindow.setContent('<div class="noscrollbar"><span>'+ports_array[i]['port_name']+'</span></div>');
-                  infowindow.open(map, new_marker);
-                }
-            })(new_marker, i));
-        }
-    },'json');
-}
-function get_suppliers(keyword, city, category, subcategories){
-    var supplier_array;
+
+
+//updated database, should be get_business instead.
+
+function get_suppliers(keyword, country, category, checked_business_type_array){
+    var business_array;
     var bounds = new google.maps.LatLngBounds();
     var post_data = new Object;
     post_data['keyword']=keyword;
-    post_data['city']=city;
+    //post_data['city']=city;
+    post_data['country']=country;
     post_data['category']=category;
-    post_data['subcategories']=subcategories;//should be an array
+    post_data['checked_business_type_array']=checked_business_type_array;
+    //post_data['subcategories']=subcategories;//should be an array
     
     $.post('php/get_supplier.php',post_data, function(data){
-        supplier_array = data['supplier_array'];
+        business_array = data['supplier_array'];
+        //console.log(business_array.length);
         
-        console.info(supplier_array);
         clearMarkers(supplier_markers);
-        
-        for(i=0; i<supplier_array.length; i++){
-            var dataPhoto = supplier_array[i];
-            var lat_lng = new google.maps.LatLng(dataPhoto.lat, dataPhoto.lng);
-            var new_marker = new google.maps.Marker({
-                position:lat_lng,
+        supplier_markers=[];
+        for(i=0; i<business_array.length; i++){
+            var business_data = business_array[i];
+            
+            var business_fill_color = '#FFF';
+            //var business_content = '';
+            switch(business_data.business_type){
+                case 'S':
+                    business_fill_color = '#DC3D24';
+                    
+                    break;
+                case 'C':
+                    business_fill_color = '#9F17ea';
+                    break;
+                case 'L':
+                    business_fill_color = '#FFF';
+                    break;
+                case 'port':
+                    business_fill_color = '#FFBD0C';
+                    break;
+            }
+            
+            
+            var business_position = new google.maps.LatLng(business_data.lat, business_data.lng);
+            
+                //console.info(checked_business_type_array);
+                //console.log($.inArray('show_name', checked_business_type_array));
+            var business_name = (business_data.business_name?business_data.business_name:business_data.port_name);
+            
+            var new_marker = new MarkerWithLabel({
+                position:business_position,
                 map:map,
-                icon:'images/factory.png'
+                //icon:'images/factory.png',
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    fillColor:business_fill_color,
+                    strokeColor: '#ff0c0c',
+                    strokeWeight: 1,
+                    fillOpacity: 10,
+                    scale: 5
+                },
+                clickable: true,
+                labelContent: business_name,
+                labelAnchor: new google.maps.Point(50, 0),
+                labelClass: "map_labels", // the CSS class for the label
+                labelStyle: {opacity: 1}
             });
+            
             bounds.extend(new_marker.getPosition());
             supplier_markers.push(new_marker);
             google.maps.event.addListener(new_marker, 'click', (function(new_marker, i) {
                 return function() {
-                  infowindow.setContent('<div class="noscrollbar"><a target="_blank" href="single.php?id='+supplier_array[i]['business_id']+'">'+supplier_array[i]['business_name']+'</a></div>');
-                  infowindow.open(map, new_marker);
+                    if(business_array[i]['business_type']!='port'){
+                        var business_content = '<div class="noscrollbar"><a target="_blank" href="single.php?id='+business_array[i]['business_id']+'">'+business_array[i]['business_name']+'</a></div>';
+                    }else{
+                        var business_content = '<div class="noscrollbar"><span>'+business_array[i]['port_name']+'</span></div>';
+                    }
+                    infowindow.setContent(business_content);
+                    infowindow.open(map, new_marker);
                 }
             })(new_marker, i));
 
         }
-        //var markerCluster = new MarkerClusterer(map, supplier_markers);
+        //markerCluster.setMap(null);
+        /*var styles= [{
+                        height: 53,
+                        url: "images/markerclusterer/m1.png",
+                        width: 53
+                        },
+                        {
+                        height: 56,
+                        url: "images/markerclusterer/m1.png",
+                        width: 56
+                        },
+                        {
+                        height: 66,
+                        url: "images/markerclusterer/m1.png",
+                        width: 66
+                        },
+                        {
+                        height: 78,
+                        url: "images/markerclusterer/m1.png",
+                        width: 78
+                        },
+                        {
+                        height: 90,
+                        url: "images/markerclusterer/m1.png",
+                        width: 90
+                    }];*/
+        markerCluster.clearMarkers();
+        markerCluster.addMarkers(supplier_markers);
+        markerCluster.setGridSize(50);
+        //markerCluster.setStyles(styles);
         map.fitBounds(bounds);
         $('#supplier_count').text(data['count']);
     },'json');
@@ -117,6 +181,14 @@ function setAllMap(marker_array, map) {
   for (var i = 0; i < marker_array.length; i++) {
     marker_array[i].setMap(map);
   }
+}
+function toggle_name(){
+    if($('#show_name_checkbox').is(":checked")){
+        $('.map_labels').show();
+    }else{
+        $('.map_labels').hide();
+    }
+    
 }
 function initialize() {
     
@@ -137,7 +209,9 @@ function initialize() {
         streetViewControl: false
     };
     map=new google.maps.Map(document.getElementById("map_canvas"),mapProp);
-    var input = document.getElementById('keyword');
+    //var mcOptions = {gridSize: 50, maxZoom: 15};
+    markerCluster = new MarkerClusterer(map);
+    var input = document.getElementById('google_address');
     var autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.bindTo('bounds',map);
     var marker = new google.maps.Marker({
@@ -298,10 +372,10 @@ function show_menu(arg){
         
             if(arg=='search'){
                 var keyword = $('#keyword').val().trim();
-                //var location = $('#location').val().trim();
+                var country = $('#country').val().trim();
                 
-                if(keyword.length>0 || location.length>0){
-                    console.log(keyword);
+                if(keyword.length>0 || country.length>0){
+                    
                     target.addClass('not_empty');
                 }else{
                     target.removeClass('not_empty');
@@ -331,10 +405,10 @@ function show_menu(arg){
 
 function populate_category_dropdown(){
     for(i=0; i<category_array.length;i++){
-        console.log(category_array[i]);
+        //console.log(category_array[i]);
         $('#category_select').append('<option>'+category_array[i]+'</option>');
     }
-    $('#category_select').on('change',function(){
+    /*$('#category_select').on('change',function(){
         var subcategory_array = get_subcategory_array(this.value);
         $('#sub_category_checkbox_area').empty();
         for(i=0; i<subcategory_array.length;i++){
@@ -342,7 +416,7 @@ function populate_category_dropdown(){
             $('#sub_category_checkbox_area').append(checkbox_html);
             
         }
-    });
+    });*/
 }
 
 function get_subcategory_array(category_name){
