@@ -64,7 +64,22 @@
     border-top-right-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
 }
-
+.hidden_menu_customer{
+    float: left;
+    height:500px;
+    width:500px;
+    z-index:2;
+    position:absolute;
+    left:-1000px;
+    top:150px;
+    background:#304387;
+    color:#fff;
+    padding-left: 100px;
+    padding-top: 10px;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    
+}
 #company_type{
     margin-bottom: 20px;
 }

@@ -222,32 +222,9 @@ function reset_keywords(){
     $('#location').val('');
     update_map();
 }
-function get_ports(){
-    var ports_array;
-    $.post('../php/get_ports.php','',function(data){
-        ports_array=data['ports_array'];
-        
-        for(i=0; i<ports_array.length;i++){
-            var port_data = ports_array[i];
-            var lat_lng = new google.maps.LatLng(port_data.lat, port_data.lng);
-            var new_marker = new google.maps.Marker({
-                position:lat_lng,
-                map:map,
-                icon:'images/shipwreck.png'
-            });
-            port_markers.push(new_marker);
-            //var port_markerCluster = new MarkerClusterer(map, port_markers);
-            google.maps.event.addListener(new_marker, 'click', (function(new_marker, i) {
-                return function() {
-                  infowindow.setContent('<div class="noscrollbar"><span>'+ports_array[i]['port_name']+'</span></div>');
-                  infowindow.open(map, new_marker);
-                }
-            })(new_marker, i));
-        }
-    },'json');
-}
+
 function get_suppliers(keyword, category){
-    var supplier_array;
+    var business_array;
     var bounds = new google.maps.LatLngBounds();
     var post_data = new Object;
     post_data['keyword']=keyword;
@@ -256,16 +233,16 @@ function get_suppliers(keyword, category){
     
     
     $.post('php/get_customer_supplier.php',post_data, function(data){
-        supplier_array = data['supplier_array'];
+        business_array = data['supplier_array'];
         //console.info(supplier_array);
         clearMarkers(supplier_markers);
-        console.info(supplier_array);
-        if(supplier_array.length==0){
+        console.info(business_array);
+        if(business_array.length==0){
             //There is no supplier in the database. Remind customer to add one.
             pop();
         }else{
-            for(i=0; i<supplier_array.length; i++){
-                var dataPhoto = supplier_array[i];
+            for(i=0; i<business_array.length; i++){
+                var dataPhoto = business_array[i];
                 var lat_lng = new google.maps.LatLng(dataPhoto.lat, dataPhoto.lng);
                 var new_marker = new google.maps.Marker({
                     position:lat_lng,
@@ -276,7 +253,7 @@ function get_suppliers(keyword, category){
                 supplier_markers.push(new_marker);
                 google.maps.event.addListener(new_marker, 'click', (function(new_marker, i) {
                     return function() {
-                      infowindow.setContent('<div class="noscrollbar"><a target="_blank" href="single.php?id='+supplier_array[i]['business_id']+'">'+supplier_array[i]['business_name']+'</a></div>');
+                      infowindow.setContent('<div class="noscrollbar"><a target="_blank" href="single.php?id='+business_array[i]['business_id']+'">'+business_array[i]['business_name']+'</a></div>');
                       infowindow.open(map, new_marker);
                     }
                 })(new_marker, i));
@@ -301,6 +278,14 @@ function setAllMap(marker_array, map) {
   for (var i = 0; i < marker_array.length; i++) {
     marker_array[i].setMap(map);
   }
+}
+function toggle_name(){
+    if($('#show_name_checkbox').is(":checked")){
+        $('.map_labels').show();
+    }else{
+        $('.map_labels').hide();
+    }
+    
 }
 function initialize() {
     
@@ -370,11 +355,14 @@ function show_menu(arg){
     /*$('#'+arg).css('background-color','#00adef');
     $('#'+arg).siblings().css('background-color', '#fff');*/
     var target = $('#home_menu_'+arg);
-    var all_hidden = $('.hidden_menu');
+    var all_hidden = $('.hidden_menu_customer');
+    
     if(target.hasClass('selected')){
+        
         target.removeClass('selected');
         //target.children().children().attr('src','images/'+arg+'1_icon.png');
     }else{
+        
         target.addClass('selected');
         //target.children().children().attr('src','images/'+arg+'2_icon.png');
         target.siblings().removeClass('selected');

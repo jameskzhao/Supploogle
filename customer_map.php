@@ -20,16 +20,12 @@
 ?>
     <div>
 
-        <div id="hidden_home_menu_search" class="hidden_menu">
+        <div id="hidden_home_menu_search" class="hidden_menu_customer">
             <div class="container-fluid">
                 <div class="form-group has-feedback">
                     <label for="usr"><h4>Search Map</h4></label>
                     <input type="text" class="form-control form_input" id="keyword" placeholder="Enter an address...">
-                    
-                    
-                    
                 </div>
-                
                 <div class="col-sm-8">
                     <button type="button" class="btn btn-default btn-lg" onclick="update_map(); show_menu('search')">Search</button>
                     <button type="button" class="btn btn-default btn-lg" onclick="reset_keywords(); show_menu('search')">Reset</button>
@@ -37,7 +33,7 @@
             </div>
 
         </div>
-        <div id="hidden_home_menu_filter" class="hidden_menu">
+        <div id="hidden_home_menu_filter" class="hidden_menu_customer">
             <div class="form-group container-fluid">
                 <div class="col-lg-12">
                     
@@ -60,23 +56,26 @@
                 </div>
             </div>
         </div>
-        <div id="hidden_home_menu_layers" class="hidden_menu">
+        <div id="hidden_home_menu_layers" class="hidden_menu_customer">
             <div class="form-group container-fluid">
                 <div class="col-sm-8">
                     <label for="usr"><h4>Layers</h4></label>
                     <div id="layer_checkbox_area" class="col-lg-12 form_input">
-                        <label class="checkbox-inline"><input id="port_layer_checkbox" type="checkbox" value="ports" checked>Ports</label>
+                        <ul class="list-unstyled">
+                            <li><label class="checkbox-inline"><input id="port_layer_checkbox" type="checkbox" value="ports" checked>Ports</label></li>
+                            <li><label class="checkbox-inline"><input id="show_name_checkbox" type="checkbox" value="show_name" onchange="toggle_name()" checked>Show Name</label></li>
+                        </ul>
                     </div>
                     
                 </div>
             </div>
         </div>
-        <div id="hidden_home_menu_layers" class="hidden_menu">
+        <div id="hidden_home_menu_layers" class="hidden_menu_customer">
             <div class="form-group container-fluid">
                 <div class="col-sm-8">
                     <label for="usr"><h4>Layers</h4></label>
                     <div id="layer_checkbox_area" class="col-lg-12 form_input">
-                        <label class="checkbox-inline"><input id="port_layer_checkbox" type="checkbox" value="ports" checked>Ports</label>
+                                                
                     </div>
                     
                 </div>
@@ -150,7 +149,7 @@
             
 
         </div>
-        <h1 class="text-center">My Suppliers</h1>
+        <!--<h1 class="text-center">My Suppliers</h1>-->
         <div class="text-right">
             <div id="home_menu_layers" class="search_results" > 
                 <span class="label label-info"> <span id="supplier_count"></span> &nbsp; Results</span>
